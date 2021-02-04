@@ -18,13 +18,13 @@ public class Wing extends SubsystemBase {
   private String status = "stoooooooop";
   public Wing(){
     TwoWing.configNeutralDeadband(0.01);
-    TwoWing.configPeakOutputForward(0.8);
-    TwoWing.configPeakOutputReverse(-0.8);
+    TwoWing.configPeakOutputForward(0.5);
+    TwoWing.configPeakOutputReverse(-0.5);
     TwoWing.setNeutralMode(NeutralMode.Coast);
 
     Middle.configNeutralDeadband(0.01);
-    Middle.configPeakOutputForward(0.8);
-    Middle.configPeakOutputReverse(-0.8);
+    Middle.configPeakOutputForward(0.5);
+    Middle.configPeakOutputReverse(-0.5);
     Middle.setNeutralMode(NeutralMode.Coast);
 
     Middle.setInverted(true);
@@ -38,13 +38,8 @@ public class Wing extends SubsystemBase {
   
   
   public void forward(){
-    if(PDP.getCurrent(Constants.Wing_TwoWing_PDP)>25||PDP.getCurrent(Constants.Wing_middle_PDP)>25){
-      TwoWing.set(ControlMode.PercentOutput,0);
-      Middle.set(ControlMode.PercentOutput,0);
-    }else{
-      TwoWing.set(ControlMode.PercentOutput,0.5);
+      TwoWing.set(ControlMode.PercentOutput,-0.5);
       Middle.set(ControlMode.PercentOutput,-0.5);
-    }
     status = "Enggggggggggggggggggggggggageeeeeeee!!!";
   }
 

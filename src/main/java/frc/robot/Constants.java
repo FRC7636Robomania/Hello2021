@@ -22,20 +22,20 @@ public final class Constants {
     public static final int kTimesOut = 10;  
 
     /*馬達腳位*/
-    public static final int conveyor         = 1;	
-    public static final int Wing_TwoWing     = 5;
-    public static final int Wing_middle      = 4;
+    public static final int conveyor         = 3;	
+    public static final int Wing_TwoWing     = 1;
+    public static final int Wing_middle      = 2;
     public static final int flywheelleft     = 17;
     public static final int flywheelRight    = 15;
-    public static final int tower            = 32;
+    public static final int tower            = 36;
     public static final int racker           = 25;
 
     /*PDP位址*/
-    public static final int Conveyor_PDP        = 10; 
-    public static final int Wing_TwoWing_PDP    = 5;
-    public static final int Wing_middle_PDP     = 6;
-    public static final int Intake_PDP          = 4;
-    public static final int flywheelleft_PDP    = 12;
+    public static final int Conveyor_PDP        = 5; 
+    public static final int Wing_TwoWing_PDP    = 10;
+    public static final int Wing_middle_PDP     = 11;
+    public static final int Intake_PDP          = 9;
+    //public static final int flywheelleft_PDP    = 12;
 
     public static class Value{
         public static final int flywheelSpeed    = 12000;
@@ -54,8 +54,8 @@ public final class Constants {
 
     public static class Button{
         public static final int tower_left = 1;
-        public static final int tower_right = 2;
-        public static final int intake_wing = 3;
+        public static final int tower_right = 3;
+        public static final int intake_wing = 2;
         public static final int arm = 4;
         public static final int flywheel = 5;
         public static final int aim = 6;

@@ -62,7 +62,7 @@ public class Racker extends SubsystemBase {
     }
 
     public void PortDistance(){
-        double distance = limelight.limeldouble()[3];
+        double distance = Limelight.getdistances();
 
         if(distance<=250){
             rackerSrx.set(ControlMode.Position, 11500);

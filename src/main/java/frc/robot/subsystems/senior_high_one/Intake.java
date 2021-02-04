@@ -10,13 +10,13 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 public class Intake extends SubsystemBase {
     /** Creates a new ExampleSubsystem. */
-   private final WPI_VictorSPX motor = new WPI_VictorSPX(3);
+   private final WPI_VictorSPX motor = new WPI_VictorSPX(7);
 
    public Intake(){
    }
 
     public void foward(){
-        motor.set(ControlMode.PercentOutput,-0.8);
+      motor.set(ControlMode.PercentOutput,0.5);
     }
     public void stop(){
       motor.set(ControlMode.PercentOutput,-0.0);

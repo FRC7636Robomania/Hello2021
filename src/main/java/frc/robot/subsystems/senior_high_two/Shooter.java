@@ -9,15 +9,12 @@ package frc.robot.subsystems.senior_high_two;
 
 import com.ctre.phoenix.motorcontrol.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import frc.robot.Constants;
 import frc.robot.Constants.Value;
 
 public class Shooter extends SubsystemBase {
-  private Limelight limelight;
-  private PowerDistributionPanel PDP = new PowerDistributionPanel();
   private SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration = new SupplyCurrentLimitConfiguration(true, 40, 50, 1);
   private TalonFX flywheelLeft = new TalonFX(Constants.flywheelleft);
   private TalonFX flywheelRight = new TalonFX(Constants.flywheelRight);
@@ -74,7 +71,7 @@ public class Shooter extends SubsystemBase {
 
   public void forward() {
     flywheelRight.follow(flywheelLeft);
-    if(limelight.limeldouble()[3]<=200){
+    if(Limelight.getdistances() < 200) {
       flywheelLeft.config_kF(0, 0.05);
       flywheelRight.config_kF(0, 0.05);
       flywheelLeft.set(ControlMode.Velocity, 11000);
@@ -102,7 +99,6 @@ public class Shooter extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("flyvel", flywheelLeft.getSelectedSensorVelocity(0));
     SmartDashboard.putNumber("flyvel2", flywheelLeft.getSelectedSensorVelocity(0));
-    SmartDashboard.putNumber("fly_current", PDP.getCurrent(Constants.flywheelleft_PDP));
     SmartDashboard.putNumber("fly_Voltage", flywheelRight.getMotorOutputVoltage());
   }
 }

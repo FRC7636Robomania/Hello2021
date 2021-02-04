@@ -28,10 +28,10 @@ public class Tower extends SubsystemBase {
     }
 
     public void aimming(){
-        double horizenError = limelight.limeldouble()[0]*Constants.Value.towerConst;
-        double targetArea = limelight.limeldouble()[2];
+        double horizenError = Limelight.getTx()*Constants.Value.towerConst;
+        double targetArea = Limelight.getTy();
         if(targetArea != 0){
-            if((limelight.limeldouble()[0]<0.1) && (limelight.limeldouble()[0]>(-0.1))){
+            if((Limelight.getTx()<0.1) && (Limelight.getTx()>(-0.1))){
                 towerSrx.set(ControlMode.PercentOutput, 0);
                 status = "done";
             }else{

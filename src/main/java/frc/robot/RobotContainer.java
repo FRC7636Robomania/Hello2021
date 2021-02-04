@@ -54,7 +54,7 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     new JoystickButton(findHitoABoyfriend, Constants.Button.intake_wing)          .whenHeld(new stage_1(m_Intake,m_Wing));
-    new JoystickButton(findHitoABoyfriend, Constants.Button.flywheel)             .whenHeld(new stage_2(m_Shooter));
+    new JoystickButton(joystick, Constants.Button.flywheel)             .whenHeld(new stage_2(m_Shooter));
     new JoystickButton(findHitoABoyfriend, Constants.Button.shoot)                .whenHeld(new stage_3(m_Conveyor, m_Wing));
     new JoystickButton(findHitoABoyfriend, Constants.Button.arm)                  .whenHeld(new Arm_motion(m_arm));
     new JoystickButton(findHitoABoyfriend, Constants.Button.aim)                  .whenHeld(new RunCommand(()->m_tower.aimming(),m_tower))
@@ -79,6 +79,10 @@ public class RobotContainer {
     Shuffleboard.getTab("Statue").addString("Racker", m_Racker::racker_status);
     Shuffleboard.getTab("Statue").addString("Arm", m_arm::arm_status);
     Shuffleboard.getTab("Statue").addBoolean("Racker_limit", m_Racker::rack_limit);
+    SmartDashboard.putNumber("tx", m_Limelight.limeldouble()[0]);
+    SmartDashboard.putNumber("ty", m_Limelight.limeldouble()[1]);
+    SmartDashboard.putNumber("ta", m_Limelight.limeldouble()[2]);
+    SmartDashboard.putNumber("distance", m_Limelight.limeldouble()[3]);
   }
 
 

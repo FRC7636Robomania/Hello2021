@@ -4,10 +4,9 @@ package frc.robot.subsystems.senior_high_two;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Limelight extends SubsystemBase {
+public class Limelight extends SubsystemBase{
 
     private static NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight-unicorn");
     private static NetworkTableEntry tx = table.getEntry("tx");
@@ -31,11 +30,23 @@ public class Limelight extends SubsystemBase {
         return limelightvalue;
     }
 
-    @Override
-    public void periodic(){
-        SmartDashboard.putNumber("tx", limeldouble()[0]);
-        SmartDashboard.putNumber("ty", limeldouble()[1]);
-        SmartDashboard.putNumber("ta", limeldouble()[2]);
-        SmartDashboard.putNumber("distance", limeldouble()[3]);
+    public static double getarea() {
+        double area = ta.getDouble(0.0);
+        return area;
+    }
+    
+    public static double getTx() {
+        double x = tx.getDouble(0.0);
+        return x;
+    }
+    
+    public static double getTy() {
+        double y = ty.getDouble(0.0);
+        return y;
+    }
+    
+    public static double getdistances(){
+        double distance = (250-55)/(Math.tan(Math.toRadians(54+Limelight.getTy())));
+        return distance;
     }
 }

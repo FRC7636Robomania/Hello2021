@@ -13,4 +13,7 @@ public class PDP {
     public static double getCurrent(int channel){
         return pdp.getCurrent(channel);
     }
+public class PCM{
+    //private final static Power
+}
 }

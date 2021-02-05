@@ -38,11 +38,12 @@ public final class Constants {
     //public static final int flywheelleft_PDP    = 12;
 
     public static class Value{
-        public static final int flywheelSpeed    = 12000;
+        public static final double fly_speedFAR     = 11700;
+        public static final double fly_speedCLOSE   = 11000;
 
-        public static final double fly_kp        = 0.1;
-        public static final double fly_kF_1        = 0.506;
-        public static final double fly_kF_2        = 0.06;
+        public static final double fly_kp        = 0.2;
+        public static final double fly_kFCLOSE   = 0.05;
+        public static final double fly_kFAR      = 0.05;
         public static final double rackerKP      = 0.45;
         public static final double rackerKI      = 0.001;
 

@@ -21,6 +21,9 @@ public class Intake extends SubsystemBase {
     public void stop(){
       motor.set(ControlMode.PercentOutput,-0.0);
     }
+    public void reverse(){
+      motor.set(ControlMode.PercentOutput,-0.5);
+    }
 
     @Override
     public void periodic(){

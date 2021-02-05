@@ -39,15 +39,20 @@ public class Racker extends SubsystemBase {
         rackerSrx.setSelectedSensorPosition(0, 0, Constants.kTimesOut);
         
         //????
+        
+    }
+
+    public void rackerZero(){
         rackerSrx.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector , LimitSwitchNormal.NormallyOpen);
         if(!rackerSrx.getSensorCollection().isFwdLimitSwitchClosed()){
             rackerSrx.set(ControlMode.PercentOutput, -0.4);
-            if(rackerSrx.getSensorCollection().isFwdLimitSwitchClosed()){
-                rackerSrx.setSelectedSensorPosition(0, 0, 10); 
-                rackerSrx.overrideLimitSwitchesEnable(false);     
-            }
-        } 
-    }
+            rackerSrx.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector , LimitSwitchNormal.Disabled);
+        }
+        if(rackerSrx.getSelectedSensorPosition(0)!=0){
+            rackerSrx.setSelectedSensorPosition(0);
+            rackerSrx.set(ControlMode.PercentOutput, 0);
+        }
+        }
 
     public void rackerForward(){
         rackerSrx.set(ControlMode.PercentOutput,0.4);

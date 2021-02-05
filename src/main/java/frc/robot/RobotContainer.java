@@ -88,7 +88,10 @@ public class RobotContainer {
 
   public void Compressor() {
     m_arm.Pneumatic_Status();
+    m_Racker.rackerZero();
   }
+
+  
 
   public void teleop(){
     controlDrivetrain.setDefaultCommand(

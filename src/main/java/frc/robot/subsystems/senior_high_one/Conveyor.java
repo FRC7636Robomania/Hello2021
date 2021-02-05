@@ -68,5 +68,4 @@ public class Conveyor extends SubsystemBase {
         Conveyor.set(ControlMode.PercentOutput,0);
       }
     }
-
-}
+  }

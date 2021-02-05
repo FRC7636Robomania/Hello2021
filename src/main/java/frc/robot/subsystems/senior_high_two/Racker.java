@@ -13,7 +13,6 @@ import frc.robot.Constants;
 public class Racker extends SubsystemBase {
     private SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration = new SupplyCurrentLimitConfiguration(true, 30, 30, 1);
     public TalonSRX rackerSrx = new TalonSRX(Constants.racker);
-    private Limelight limelight;
     String status = "stop";
 
 
@@ -100,4 +99,4 @@ public class Racker extends SubsystemBase {
     public void periodic(){
         SmartDashboard.putNumber("Rack Position", rackerSrx.getSelectedSensorPosition());
     }
-} 
+}

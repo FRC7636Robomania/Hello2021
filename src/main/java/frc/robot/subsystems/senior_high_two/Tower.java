@@ -9,7 +9,6 @@ import frc.robot.Constants;
 public class Tower extends SubsystemBase {
     private SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration = new SupplyCurrentLimitConfiguration(true, 10, 10, 1);
     private TalonSRX towerSrx = new TalonSRX(Constants.tower);
-    private Limelight limelight; 
     private String status = "stop";
     
     public Tower(Limelight limelight){

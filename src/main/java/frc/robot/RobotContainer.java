@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.commands.*;
 import frc.robot.commands.auto.LeftUp;
+import frc.robot.commands.auto.TrajectoryCommand;
 import frc.robot.subsystems.senior_high_one.*;
 import frc.robot.subsystems.senior_high_two.*;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.senior_high_two.chassis.ControlDrivetrain;
 import frc.robot.subsystems.senior_high_two.chassis.trajectory.TrajectoryDrivetrain;
+import frc.robot.subsystems.senior_high_two.chassis.trajectory.TrajectoryFactory;
 
 public class RobotContainer {
   private XboxController findHitoABoyfriend = new XboxController(0);
@@ -49,6 +51,7 @@ public class RobotContainer {
                                            m_Racker, m_tower, m_Intake, 
                                            m_Wing, m_Shooter, m_Conveyor, m_arm));
     chooser.setDefaultOption("Null", null);
+    chooser.addOption("one", TrajectoryCommand.build(TrajectoryFactory.getTrajectory("output/test.wpilib.json"), trajectoryDrivetrain, TrajectoryCommand.OutputMode.VOLTAGE, trajectoryDrivetrain));
     SmartDashboard.putData(chooser);
   }
 
@@ -102,6 +105,6 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return chooser.getSelected();
   }
 }

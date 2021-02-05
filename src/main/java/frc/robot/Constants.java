@@ -41,7 +41,7 @@ public final class Constants {
         public static final int flywheelSpeed    = 12000;
 
         public static final double fly_kp        = 0.1;
-        public static final double fly_kF_1        = 0.506;
+        public static final double fly_kF_1        = 0.0506;
         public static final double fly_kF_2        = 0.06;
         public static final double rackerKP      = 0.45;
         public static final double rackerKI      = 0.001;
@@ -77,8 +77,8 @@ public final class Constants {
         public static final boolean isRightPhaseInvert = false;
         public static final boolean isLeftPhaseInvert = true;
 
-        public static final double kS = 1.07;
-        public static final double kV = 0.365;
+        public static final double kS = 0.9;
+        public static final double kV = 0.2;
         public static final double kA = 0.008;
         public static final double kP = 1.0;
     }

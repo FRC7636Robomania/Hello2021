@@ -11,8 +11,10 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 public class Intake extends SubsystemBase {
     /** Creates a new ExampleSubsystem. */
    private final WPI_VictorSPX motor = new WPI_VictorSPX(7);
+   
 
    public Intake(){
+     motor.setInverted(true);
    }
 
     public void foward(){
@@ -21,6 +23,9 @@ public class Intake extends SubsystemBase {
     public void stop(){
       motor.set(ControlMode.PercentOutput,-0.0);
     }
+    public void reverse(){
+      motor.set(ControlMode.PercentOutput,-0.5);
+    }
 
     @Override
     public void periodic(){
@@ -28,4 +33,4 @@ public class Intake extends SubsystemBase {
         motor.set(ControlMode.PercentOutput,0.0);
        }
     }
-}
+  }

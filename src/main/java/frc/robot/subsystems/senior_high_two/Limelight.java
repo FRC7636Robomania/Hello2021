@@ -5,6 +5,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Limelight extends SubsystemBase{
 
@@ -49,4 +50,12 @@ public class Limelight extends SubsystemBase{
         double distance = (250-55)/(Math.tan(Math.toRadians(54+Limelight.getTy())));
         return distance;
     }
+
+@Override
+public void periodic(){
+    SmartDashboard.putNumber("tx", Limelight.getTx());
+    SmartDashboard.putNumber("ty",Limelight.getTy());
+    SmartDashboard.putNumber("ta",Limelight.getarea());
+    SmartDashboard.putNumber("distance", Limelight.getdistances());
+}
 }

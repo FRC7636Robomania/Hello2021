@@ -15,10 +15,10 @@ import frc.robot.Constants;
 import frc.robot.Constants.Value;
 
 public class Shooter extends SubsystemBase {
-  private SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration = new SupplyCurrentLimitConfiguration(true, 40, 50, 1);
+  private SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration = new SupplyCurrentLimitConfiguration(true, 40, 50, 0.8);
   private TalonFX flywheelLeft = new TalonFX(Constants.flywheelleft);
   private TalonFX flywheelRight = new TalonFX(Constants.flywheelRight);
-  double vel = Value.flywheelSpeed;
+  
   public String status = "stop";
 
   
@@ -61,8 +61,8 @@ public class Shooter extends SubsystemBase {
     //test mode
     //flywheelLeft.configVoltageCompSaturation(11);
     //flywheelRight.configVoltageCompSaturation(11);
-    flywheelLeft.configVoltageMeasurementFilter(10);
-    flywheelRight.configVoltageMeasurementFilter(10);
+    flywheelLeft.configVoltageMeasurementFilter(11);
+    flywheelRight.configVoltageMeasurementFilter(11);
     
     //flywheelLeft.enableVoltageCompensation(false);
     //flywheelRight.enableVoltageCompensation(false);
@@ -71,14 +71,14 @@ public class Shooter extends SubsystemBase {
 
   public void forward() {
     flywheelRight.follow(flywheelLeft);
-    if(Limelight.getdistances() < 200) {
-      flywheelLeft.config_kF(0, 0.05);
-      flywheelRight.config_kF(0, 0.05);
-      flywheelLeft.set(ControlMode.Velocity, 11000);
+    if(Limelight.getdistances() <= 130) {
+      flywheelLeft.config_kF(0, Constants.Value.fly_kFCLOSE);
+      flywheelRight.config_kF(0, Constants.Value.fly_kFCLOSE);
+      flywheelLeft.set(ControlMode.Velocity, Constants.Value.fly_speedCLOSE);
     }else{
-      flywheelLeft.config_kF(0, 0.06);
-      flywheelRight.config_kF(0, 0.06);
-      flywheelLeft.set(ControlMode.Velocity,12000);
+      flywheelLeft.config_kF(0, Constants.Value.fly_kFAR);
+      flywheelRight.config_kF(0, Constants.Value.fly_kFAR);
+      flywheelLeft.set(ControlMode.Velocity, Constants.Value.fly_speedFAR);
     }
   }
 
@@ -100,5 +100,6 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putNumber("flyvel", flywheelLeft.getSelectedSensorVelocity(0));
     SmartDashboard.putNumber("flyvel2", flywheelLeft.getSelectedSensorVelocity(0));
     SmartDashboard.putNumber("fly_Voltage", flywheelRight.getMotorOutputVoltage());
+    SmartDashboard.putNumber("fly_current", PDP.getCurrent(12));
   }
 }

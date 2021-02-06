@@ -38,11 +38,12 @@ public final class Constants {
     //public static final int flywheelleft_PDP    = 12;
 
     public static class Value{
-        public static final int flywheelSpeed    = 12000;
+        public static final double fly_speedFAR     = 11700;
+        public static final double fly_speedCLOSE   = 11000;
 
         public static final double fly_kp        = 0.1;
-        public static final double fly_kF_1        = 0.506;
-        public static final double fly_kF_2        = 0.06;
+        public static final double fly_kFCLOSE   = 0.05;
+        public static final double fly_kFAR      = 0.05;
         public static final double rackerKP      = 0.45;
         public static final double rackerKI      = 0.001;
 
@@ -57,9 +58,9 @@ public final class Constants {
         public static final int tower_right = 3;
         public static final int intake_wing = 2;
         public static final int arm = 4;
-        public static final int flywheel = 5;
+        public static final int flywheel = 7;
         public static final int aim = 6;
-        public static final int shoot = 7;
+        public static final int shoot = 8;
         public static final int ranker_up = 11;
         public static final int ranker_down = 12;
     }
@@ -77,8 +78,8 @@ public final class Constants {
         public static final boolean isRightPhaseInvert = false;
         public static final boolean isLeftPhaseInvert = true;
 
-        public static final double kS = 1.07;
-        public static final double kV = 0.365;
+        public static final double kS = 0.9;
+        public static final double kV = 0.2;
         public static final double kA = 0.008;
         public static final double kP = 1.0;
     }

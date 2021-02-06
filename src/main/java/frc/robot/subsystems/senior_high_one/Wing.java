@@ -40,7 +40,7 @@ public class Wing extends SubsystemBase {
   public void forward(){
       TwoWing.set(ControlMode.PercentOutput,-0.5);
       Middle.set(ControlMode.PercentOutput,-0.5);
-    status = "Enggggggggggggggggggggggggageeeeeeee!!!";
+      status = "Enggggggggggggggggggggggggageeeeeeee!!!";
   }
 
   public void stop(){

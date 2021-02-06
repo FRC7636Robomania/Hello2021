@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.commands.*;
 import frc.robot.commands.auto.LeftUp;
+import frc.robot.commands.auto.TrajectoryCommand;
 import frc.robot.subsystems.senior_high_one.*;
 import frc.robot.subsystems.senior_high_two.*;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.senior_high_two.chassis.ControlDrivetrain;
 import frc.robot.subsystems.senior_high_two.chassis.trajectory.TrajectoryDrivetrain;
+import frc.robot.subsystems.senior_high_two.chassis.trajectory.TrajectoryFactory;
 
 public class RobotContainer {
   private XboxController findHitoABoyfriend = new XboxController(0);
@@ -49,12 +51,13 @@ public class RobotContainer {
                                            m_Racker, m_tower, m_Intake, 
                                            m_Wing, m_Shooter, m_Conveyor, m_arm));
     chooser.setDefaultOption("Null", null);
+    chooser.addOption("one", TrajectoryCommand.build(TrajectoryFactory.getTrajectory("output/test.wpilib.json"), trajectoryDrivetrain, TrajectoryCommand.OutputMode.VOLTAGE, trajectoryDrivetrain));
     SmartDashboard.putData(chooser);
   }
 
   private void configureButtonBindings() {
-    new JoystickButton(findHitoABoyfriend, Constants.Button.intake_wing)          .whenHeld(new stage_1(m_Intake,m_Wing));
-    new JoystickButton(joystick, Constants.Button.flywheel)             .whenHeld(new stage_2(m_Shooter));
+    new JoystickButton(joystick, Constants.Button.intake_wing)          .whenHeld(new stage_1(m_Intake,m_Wing));
+    new JoystickButton(findHitoABoyfriend, 7)                           .whenHeld(new stage_2(m_Shooter));
     new JoystickButton(findHitoABoyfriend, Constants.Button.shoot)                .whenHeld(new stage_3(m_Conveyor, m_Wing));
     new JoystickButton(findHitoABoyfriend, Constants.Button.arm)                  .whenHeld(new Arm_motion(m_arm));
     new JoystickButton(findHitoABoyfriend, Constants.Button.aim)                  .whenHeld(new RunCommand(()->m_tower.aimming(),m_tower))
@@ -69,6 +72,12 @@ public class RobotContainer {
                                                                                   .whenReleased(new InstantCommand(()->m_Racker.rackerstop(), m_Racker));
     new JoystickButton(findHitoABoyfriend, Constants.Button.ranker_down)          .whenHeld(new InstantCommand(()->m_Racker.rackerReverse(), m_Racker))
                                                                                   .whenReleased(new InstantCommand(()->m_Racker.rackerstop(), m_Racker));
+    new JoystickButton(joystick, 8)                                               .whenHeld(new RunCommand(()->m_Intake.reverse(), m_Intake)) 
+                                                                                  .whenHeld(new RunCommand(()->m_Wing.reverse(), m_Wing))             
+                                                                                  .whenHeld(new RunCommand(()->m_Conveyor.reverse(), m_Conveyor));                       
+    //new JoystickButton(joystick, 3)          .whenHeld(new RunCommand(()->m_Shooter.percentage()));
+  //   new JoystickButton(findHitoABoyfriend, 2)                         .whenHeld(new InstantCommand(()->m_Conveyor.forward()))
+  //                                                                     .whenReleased(new InstantCommand(()->m_Conveyor.stop()));
   }
 
   public void Status(){
@@ -79,16 +88,12 @@ public class RobotContainer {
     Shuffleboard.getTab("Statue").addString("Racker", m_Racker::racker_status);
     Shuffleboard.getTab("Statue").addString("Arm", m_arm::arm_status);
     Shuffleboard.getTab("Statue").addBoolean("Racker_limit", m_Racker::rack_limit);
-    SmartDashboard.putNumber("tx", m_Limelight.limeldouble()[0]);
-    SmartDashboard.putNumber("ty", m_Limelight.limeldouble()[1]);
-    SmartDashboard.putNumber("ta", m_Limelight.limeldouble()[2]);
-    SmartDashboard.putNumber("distance", m_Limelight.limeldouble()[3]);
   }
-
-
   public void Compressor() {
     m_arm.Pneumatic_Status();
   }
+
+  
 
   public void teleop(){
     controlDrivetrain.setDefaultCommand(
@@ -99,9 +104,12 @@ public class RobotContainer {
         controlDrivetrain)
     );
   }
+  public void reset(){
+    m_Racker.reset();
+  }
 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return chooser.getSelected();
   }
 }

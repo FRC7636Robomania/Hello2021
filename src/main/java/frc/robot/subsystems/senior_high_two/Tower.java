@@ -35,7 +35,7 @@ public class Tower extends SubsystemBase {
                 towerSrx.set(ControlMode.PercentOutput, 0);
                 status = "done";
             }else{
-                towerSrx.set(ControlMode.PercentOutput, horizenError);
+                towerSrx.set(ControlMode.PercentOutput, -horizenError);
                 status = "aimming";
             }
         }

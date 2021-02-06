@@ -13,8 +13,8 @@ import frc.robot.Constants;
 public class Racker extends SubsystemBase {
     private SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration = new SupplyCurrentLimitConfiguration(true, 30, 30, 1);
     public TalonSRX rackerSrx = new TalonSRX(Constants.racker);
-    private Limelight limelight;
     String status = "stop";
+    
 
 
     public Racker(Limelight limelight){
@@ -36,13 +36,15 @@ public class Racker extends SubsystemBase {
         rackerSrx.config_IntegralZone(0, Constants.Value.rackerIZone);
 
         rackerSrx.setSelectedSensorPosition(0, 0, Constants.kTimesOut);
-        
-        //????
+
         rackerSrx.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+        //????
         if(!rackerSrx.getSensorCollection().isFwdLimitSwitchClosed()){
              rackerSrx.set(ControlMode.PercentOutput, -0.4);
-             rackerSrx.setSelectedSensorPosition(0, 0, 10); 
+             rackerSrx.setSelectedSensorPosition(0, 0, 10);
              rackerSrx.configForwardSoftLimitEnable(true);
+        }else{
+            rackerSrx.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.Disabled);
         }
     }
 
@@ -93,7 +95,7 @@ public class Racker extends SubsystemBase {
     }
 
     public Boolean rack_limit(){
-        return rackerSrx.getSensorCollection().isRevLimitSwitchClosed();
+        return rackerSrx.getSensorCollection().isFwdLimitSwitchClosed();
     }
     
   @Override

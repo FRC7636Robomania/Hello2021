@@ -16,7 +16,7 @@ public class Arm extends SubsystemBase {
   }
 
   public void Pneumatic_Status(){
-    c.setClosedLoopControl(true);
+    c.setClosedLoopControl(false);
   }
 
   public void Arm_motion(){

@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.commands.*;
 import frc.robot.commands.auto.LeftUp;
+import frc.robot.commands.auto.TrajectoryCommand;
 import frc.robot.subsystems.senior_high_one.*;
 import frc.robot.subsystems.senior_high_two.*;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.senior_high_two.chassis.ControlDrivetrain;
 import frc.robot.subsystems.senior_high_two.chassis.trajectory.TrajectoryDrivetrain;
+import frc.robot.subsystems.senior_high_two.chassis.trajectory.TrajectoryFactory;
 
 public class RobotContainer {
   private XboxController findHitoABoyfriend = new XboxController(0);
@@ -49,12 +51,13 @@ public class RobotContainer {
                                            m_Racker, m_tower, m_Intake, 
                                            m_Wing, m_Shooter, m_Conveyor, m_arm));
     chooser.setDefaultOption("Null", null);
+    chooser.addOption("one", TrajectoryCommand.build(TrajectoryFactory.getTrajectory("output/test.wpilib.json"), trajectoryDrivetrain, TrajectoryCommand.OutputMode.VOLTAGE, trajectoryDrivetrain));
     SmartDashboard.putData(chooser);
   }
 
   private void configureButtonBindings() {
     new JoystickButton(joystick, Constants.Button.intake_wing)          .whenHeld(new stage_1(m_Intake,m_Wing));
-    new JoystickButton(joystick, Constants.Button.flywheel)             .whenHeld(new stage_2(m_Shooter));
+    new JoystickButton(findHitoABoyfriend, 7)             .whenHeld(new stage_2(m_Shooter));
     new JoystickButton(findHitoABoyfriend, Constants.Button.shoot)                .whenHeld(new stage_3(m_Conveyor, m_Wing));
     new JoystickButton(findHitoABoyfriend, Constants.Button.arm)                  .whenHeld(new Arm_motion(m_arm));
     new JoystickButton(findHitoABoyfriend, Constants.Button.aim)                  .whenHeld(new RunCommand(()->m_tower.aimming(),m_tower))
@@ -84,11 +87,8 @@ public class RobotContainer {
     Shuffleboard.getTab("Statue").addString("Arm", m_arm::arm_status);
     Shuffleboard.getTab("Statue").addBoolean("Racker_limit", m_Racker::rack_limit);
   }
-
-
   public void Compressor() {
     m_arm.Pneumatic_Status();
-    m_Racker.rackerZero();
   }
 
   
@@ -102,9 +102,12 @@ public class RobotContainer {
         controlDrivetrain)
     );
   }
+  public void reset(){
+    m_Racker.reset();
+  }
 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return chooser.getSelected();
   }
 }

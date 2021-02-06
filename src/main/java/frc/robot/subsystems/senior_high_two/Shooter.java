@@ -15,7 +15,7 @@ import frc.robot.Constants;
 import frc.robot.Constants.Value;
 
 public class Shooter extends SubsystemBase {
-  private SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration = new SupplyCurrentLimitConfiguration(true, 40, 50, 1);
+  private SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration = new SupplyCurrentLimitConfiguration(true, 40, 50, 0.8);
   private TalonFX flywheelLeft = new TalonFX(Constants.flywheelleft);
   private TalonFX flywheelRight = new TalonFX(Constants.flywheelRight);
   
@@ -61,8 +61,8 @@ public class Shooter extends SubsystemBase {
     //test mode
     //flywheelLeft.configVoltageCompSaturation(11);
     //flywheelRight.configVoltageCompSaturation(11);
-    flywheelLeft.configVoltageMeasurementFilter(10);
-    flywheelRight.configVoltageMeasurementFilter(10);
+    flywheelLeft.configVoltageMeasurementFilter(11);
+    flywheelRight.configVoltageMeasurementFilter(11);
     
     //flywheelLeft.enableVoltageCompensation(false);
     //flywheelRight.enableVoltageCompensation(false);
@@ -100,5 +100,6 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putNumber("flyvel", flywheelLeft.getSelectedSensorVelocity(0));
     SmartDashboard.putNumber("flyvel2", flywheelLeft.getSelectedSensorVelocity(0));
     SmartDashboard.putNumber("fly_Voltage", flywheelRight.getMotorOutputVoltage());
+    SmartDashboard.putNumber("fly_current", PDP.getCurrent(12));
   }
 }

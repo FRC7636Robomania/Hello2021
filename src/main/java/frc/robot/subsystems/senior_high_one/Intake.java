@@ -18,13 +18,13 @@ public class Intake extends SubsystemBase {
    }
 
     public void foward(){
-      motor.set(ControlMode.PercentOutput,0.5);
+      motor.set(ControlMode.PercentOutput,0.85);
     }
     public void stop(){
       motor.set(ControlMode.PercentOutput,-0.0);
     }
     public void reverse(){
-      motor.set(ControlMode.PercentOutput,-0.5);
+      motor.set(ControlMode.PercentOutput,-0.85);
     }
     public void slowForward(){
       motor.set(ControlMode.PercentOutput, 0.6);

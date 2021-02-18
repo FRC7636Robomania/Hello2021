@@ -57,8 +57,10 @@ public class Wing extends SubsystemBase {
 
   @Override
   public void periodic(){
-    if(PDP.getCurrent(Constants.Wing_TwoWing_PDP)>25||PDP.getCurrent(Constants.Wing_middle_PDP)>25){
+    if(PDP.getCurrent(Constants.Wing_TwoWing_PDP)>25){
       TwoWing.set(ControlMode.PercentOutput,0);
+    }
+    if(PDP.getCurrent(Constants.Wing_middle_PDP)>25){
       Middle.set(ControlMode.PercentOutput,0);
     }
   }

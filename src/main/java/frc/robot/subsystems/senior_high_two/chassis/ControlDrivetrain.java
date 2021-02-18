@@ -12,9 +12,17 @@ public class ControlDrivetrain extends DrivetrainBase {
   /** Creates a new ControlDrivetrain. */
   /** curvature drive */
   private double m_quickStopAccumulator = 0, leftout = 0, rightout = 0, m_deadband = 0.02;
-
+  public static double rate = 1.0d;
   public ControlDrivetrain() {
 
+  }
+  public void changeRate(){
+    double another = 0.75d;
+    if(rate > another){
+      rate = another;
+    }else{
+      rate = 1.0d;
+    }
   }
   public double applyDeadband(double value, double deadband) {
     if (Math.abs(value) > deadband) {
@@ -26,50 +34,6 @@ public class ControlDrivetrain extends DrivetrainBase {
     } else {
       return 0.0;
     }
-  }
-
-  private boolean squareInputs = true;
-
-  public void arcadeDrive(double xSpeed, double zRotation){
-    xSpeed = MathUtil.clamp(xSpeed, -1.0, 1.0);
-    xSpeed = applyDeadband(xSpeed, m_deadband);
-
-    zRotation = MathUtil.clamp(zRotation, -1.0, 1.0);
-    zRotation = applyDeadband(zRotation, m_deadband);
-
-    // Square the inputs (while preserving the sign) to increase fine control
-    // while permitting full power.
-    if (squareInputs) {
-      xSpeed = Math.copySign(xSpeed * xSpeed, xSpeed);
-      zRotation = Math.copySign(zRotation * zRotation, zRotation);
-    }
-
-    double leftMotorOutput;
-    double rightMotorOutput;
-
-    double maxInput = Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed);
-
-    if (xSpeed >= 0.0) {
-      // First quadrant, else second quadrant
-      if (zRotation >= 0.0) {
-        leftMotorOutput = maxInput;
-        rightMotorOutput = xSpeed - zRotation;
-      } else {
-        leftMotorOutput = xSpeed + zRotation;
-        rightMotorOutput = maxInput;
-      }
-    } else {
-      // Third quadrant, else fourth quadrant
-      if (zRotation >= 0.0) {
-        leftMotorOutput = xSpeed + zRotation;
-        rightMotorOutput = maxInput;
-      } else {
-        leftMotorOutput = maxInput;
-        rightMotorOutput = xSpeed - zRotation;
-      }
-    }
-    leftMas.set(MathUtil.clamp(-leftMotorOutput, -1.0, 1.0));
-    rightMas.set(MathUtil.clamp(-rightMotorOutput, -1.0, 1.0));
   }
 
   public void curvatureDrive(double xSpeed, double zRotation, boolean isQuickTurn){
@@ -134,8 +98,8 @@ public class ControlDrivetrain extends DrivetrainBase {
     leftout=  leftMotorOutput;
     rightout = rightMotorOutput;
 
-    leftMas.set(ControlMode.PercentOutput, -leftout);
-    rightMas.set(ControlMode.PercentOutput, -rightout);
+    leftMas.set(ControlMode.PercentOutput, -leftout * rate);
+    rightMas.set(ControlMode.PercentOutput, -rightout * rate);
   }
 
   @Override

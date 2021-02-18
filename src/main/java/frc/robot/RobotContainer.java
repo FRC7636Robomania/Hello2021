@@ -63,15 +63,16 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     new JoystickButton(joystick, Constants.Button.intake_wing)          .whenHeld(new stage_1(m_Intake,m_Wing));
-    new JoystickButton(findHitoABoyfriend, Constants.Xbox.arm)              .whenHeld(new Arm_motion(m_arm));
+    new JoystickButton(joystick, Constants.Button.arm)              .whenHeld(new Arm_motion(m_arm));
+    new JoystickButton(joystick, Constants.Button.rateChanger)        .whenHeld(new InstantCommand(()->controlDrivetrain.changeRate()));
     new JoystickButton(joystick, Constants.Button.intake_reverse)                .whenHeld(new InstantCommand(()->m_Intake.reverse(), m_Intake)) 
                                                                               .whenHeld(new InstantCommand(()->m_Wing.reverse(), m_Wing))             
                                                                               .whenHeld(new InstantCommand(()->m_Conveyor.reverse(), m_Conveyor))
-                                                                              .whenReleased(new InstantCommand(()->m_Intake.stop(), m_Intake))
+                                        /*反轉*/                              .whenReleased(new InstantCommand(()->m_Intake.stop(), m_Intake))
                                                                               .whenReleased(new InstantCommand(()->m_Wing.stop(), m_Wing))
                                                                               .whenReleased(new InstantCommand(()->m_Conveyor.stop(), m_Conveyor));
     new JoystickButton(findHitoABoyfriend, Constants.Xbox.shoot)                .whenHeld(new stage_3(m_Conveyor, m_Wing, m_Intake));
-    new JoystickButton(findHitoABoyfriend, Constants.Xbox.flywheel)                          .whenHeld(new stage_2(m_Shooter));
+    new JoystickButton(findHitoABoyfriend, Constants.Xbox.flywheel)            .whenHeld(new stage_2(m_Shooter));
     new JoystickButton(findHitoABoyfriend, Constants.Xbox.aim)                  .whenHeld(new RunCommand(()->m_tower.aimming(),m_tower))
                                                                                   .whenReleased(new InstantCommand(()->m_tower.towerStop(),m_tower))
                                                                                   .whenHeld(new RunCommand(()->m_Racker.PortDistance(),m_Racker))
@@ -103,17 +104,11 @@ public class RobotContainer {
     m_arm.Pneumatic_Status();
   }
 
-  double a;
   public void teleop(){
-    if(joystick.getRawButton(7)){
-      a = 0.75;
-    }else{
-      a = 1;
-    }
     controlDrivetrain.setDefaultCommand(
       new RunCommand(()->
-      controlDrivetrain.curvatureDrive(joystick.getY() * 0.4*a, 
-                                       joystick.getZ() * -0.4*a, 
+      controlDrivetrain.curvatureDrive(joystick.getY() * 0.4, 
+                                       joystick.getZ() * -0.4, 
                                        joystick.getTrigger()), 
         controlDrivetrain)
     );

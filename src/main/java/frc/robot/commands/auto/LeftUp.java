@@ -35,6 +35,7 @@ public class LeftUp extends SequentialCommandGroup {
     addCommands(new WaitCommand(0.8));
     // addCommands(new Arm_motion(arm).withTimeout(1.5));
     addCommands(new stage_3(conveyor, wing, intake).withTimeout(2.2));
+    addCommands(new Move(drivetrain).withTimeout(1.2));
     // addCommands(new stage_1(intake, wing).withTimeout(7));
     // addCommands(TrajectoryCommand.build(TrajectoryFactory.getTrajectory(Path.LeftUp), drivetrain, OutputMode.VOLTAGE, drivetrain));
   }

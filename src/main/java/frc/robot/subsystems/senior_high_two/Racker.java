@@ -60,7 +60,7 @@ public class Racker extends SubsystemBase {
     public void reset() {
         // rackerSrx.overrideLimitSwitchesEnable(false);
         rackerSrx.setSelectedSensorPosition(1000000, 0, Constants.kTimesOut);
-        double[] history = new double[7];
+        double[] history = new double[5];
         
         int count = 0;
         while (true) {
@@ -70,7 +70,7 @@ public class Racker extends SubsystemBase {
             history[count] = rackerSrx.getSelectedSensorPosition();
             count++;
             // 超出十個就從最舊的開始覆蓋
-            if (count >= 6) {
+            if (count >= 5) {
                 count = 0;
             }
             // 找出最大最小
@@ -101,15 +101,10 @@ public class Racker extends SubsystemBase {
     public void PortDistance(){
         double distance = Limelight.getdistances();
         filter.calculate(distance);
+
         
-        if(35>=distance){
-            rackerSrx.set(ControlMode.Position, -2000);
-            status = "2000";
-        }else if(40>=distance&&distance>35){
-            rackerSrx.set(ControlMode.Position, -2700);
-            status = "2700";
-        }else if(50>=distance&&distance>40){
-            rackerSrx.set(ControlMode.Position, -2800);
+         if(50>=distance&&distance>40){
+            rackerSrx.set(ControlMode.Position, -4400);
             status = "2800";
         }else if(60>=distance&&distance>50){
             rackerSrx.set(ControlMode.Position, -4600);
@@ -139,10 +134,14 @@ public class Racker extends SubsystemBase {
             rackerSrx.set(ControlMode.Position, -11400); 
             status = "11400";
         }
-    }
+           
+        }
+    
+
     public String racker_status(){
         return status;
     }
+
     public Boolean rack_limit(){
         return rackerSrx.getSensorCollection().isFwdLimitSwitchClosed();
     }

@@ -44,6 +44,7 @@ public class RobotContainer {
   public RobotContainer() {
     Status();
     teleop();
+    chooser();
     Compressor();
     configureButtonBindings();
     frontCamera = CameraServer.getInstance().startAutomaticCapture();
@@ -67,8 +68,8 @@ public class RobotContainer {
                                                                               .whenHeld(new InstantCommand(()->m_Wing.reverse(), m_Wing))             
                                                                               .whenHeld(new InstantCommand(()->m_Conveyor.reverse(), m_Conveyor))
                                                                               .whenReleased(new InstantCommand(()->m_Intake.stop(), m_Intake))
-                                                                              .whenReleased(()->m_Wing.stop(), m_Wing)
-                                                                              .whenReleased(()->m_Conveyor.stop(), m_Conveyor);
+                                                                              .whenReleased(new InstantCommand(()->m_Wing.stop(), m_Wing))
+                                                                              .whenReleased(new InstantCommand(()->m_Conveyor.stop(), m_Conveyor));
     new JoystickButton(findHitoABoyfriend, Constants.Xbox.shoot)                .whenHeld(new stage_3(m_Conveyor, m_Wing, m_Intake));
     new JoystickButton(findHitoABoyfriend, Constants.Xbox.flywheel)                          .whenHeld(new stage_2(m_Shooter));
     new JoystickButton(findHitoABoyfriend, Constants.Xbox.aim)                  .whenHeld(new RunCommand(()->m_tower.aimming(),m_tower))
@@ -102,13 +103,17 @@ public class RobotContainer {
     m_arm.Pneumatic_Status();
   }
 
-  
-
+  double a;
   public void teleop(){
+    if(joystick.getRawButton(7)){
+      a = 0.75;
+    }else{
+      a = 1;
+    }
     controlDrivetrain.setDefaultCommand(
       new RunCommand(()->
-      controlDrivetrain.curvatureDrive(joystick.getY() * 0.45, 
-                                       joystick.getZ() * -0.35, 
+      controlDrivetrain.curvatureDrive(joystick.getY() * 0.4*a, 
+                                       joystick.getZ() * -0.4*a, 
                                        joystick.getTrigger()), 
         controlDrivetrain)
     );

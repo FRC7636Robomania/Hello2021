@@ -30,12 +30,12 @@ public class LeftUp extends SequentialCommandGroup {
   public LeftUp(TrajectorySystem drivetrain, Racker rack, Tower tower, Intake intake, Wing wing, Shooter shooter, Conveyor conveyor, Arm arm) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new AutoAim(tower, rack)); // aim
-    addCommands(new stage_2(shooter).withTimeout(3));
+    // addCommands(new AutoAim(tower, rack)); // aim
+    addCommands(new stage_2(shooter).withTimeout(4));
     addCommands(new WaitCommand(0.8));
-    addCommands(new Arm_motion(arm).withTimeout(1.5));
+    // addCommands(new Arm_motion(arm).withTimeout(1.5));
     addCommands(new stage_3(conveyor, wing, intake).withTimeout(2.2));
-    addCommands(new stage_1(intake, wing).withTimeout(7));
-    addCommands(TrajectoryCommand.build(TrajectoryFactory.getTrajectory(Path.LeftUp), drivetrain, OutputMode.VOLTAGE, drivetrain));
+    // addCommands(new stage_1(intake, wing).withTimeout(7));
+    // addCommands(TrajectoryCommand.build(TrajectoryFactory.getTrajectory(Path.LeftUp), drivetrain, OutputMode.VOLTAGE, drivetrain));
   }
 }

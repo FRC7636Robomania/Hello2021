@@ -39,7 +39,7 @@ public class Conveyor extends SubsystemBase {
   }
 
   public void forward(){
-    if(shooter.getflywheelVelocity()>=8000){
+    if(shooter.getflywheelVelocity()>=5000){
         Conveyor.set(ControlMode. PercentOutput , 0.5 );
         fly_status = "Normal RPM";
       }else{

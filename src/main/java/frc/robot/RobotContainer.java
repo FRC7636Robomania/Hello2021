@@ -57,7 +57,7 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     new JoystickButton(joystick, Constants.Button.intake_wing)          .whenHeld(new stage_1(m_Intake,m_Wing));
-    new JoystickButton(findHitoABoyfriend, 7)                           .whenHeld(new stage_2(m_Shooter));
+    new JoystickButton(findHitoABoyfriend, 5)                           .whenHeld(new stage_2(m_Shooter));
     new JoystickButton(findHitoABoyfriend, Constants.Button.shoot)                .whenHeld(new stage_3(m_Conveyor, m_Wing));
     new JoystickButton(findHitoABoyfriend, Constants.Button.arm)                  .whenHeld(new Arm_motion(m_arm));
     new JoystickButton(findHitoABoyfriend, Constants.Button.aim)                  .whenHeld(new RunCommand(()->m_tower.aimming(),m_tower))

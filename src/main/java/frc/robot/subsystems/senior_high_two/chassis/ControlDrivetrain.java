@@ -11,7 +11,7 @@ import edu.wpi.first.wpiutil.math.MathUtil;
 public class ControlDrivetrain extends DrivetrainBase {
   /** Creates a new ControlDrivetrain. */
   /** curvature drive */
-  private double m_quickStopAccumulator = 0, leftout = 0, rightout = 0, m_deadband = 0.02;
+  private double m_quickStopAccumulator = 0, leftout = 0, rightout = 0;
   public static double rate = 1.0d;
   public ControlDrivetrain() {
 

@@ -43,13 +43,13 @@ public final class Constants {
         public static final double fly_speedFAR     = 11700;
         public static final double fly_speedCLOSE   = 11000;
 
-        public static final double fly_kp        = 0.2;
+        public static final double fly_kp        = 0.1;
         public static final double fly_kFCLOSE   = 0.05;
         public static final double fly_kFAR      = 0.05;
         public static final double rackerKP      = 0.45;
         public static final double rackerKI      = 0.001;
 
-        public static final double towerConst    = 0.015;
+        public static final double towerConst    = 0.01;
         public static final int rackerIZone      = 100;
         public static final int portHigh         = 250;     //cm
         public static final int robotHigh        = 55+5;    //cm 
@@ -69,7 +69,6 @@ public final class Constants {
         public static final int flywheel = 5;
         public static final int shoot = 6;
         public static final int aim = 11;
-        public static final int aim2 = 12;
     }
 
     public static class Chassis{

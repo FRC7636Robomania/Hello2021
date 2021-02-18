@@ -14,7 +14,7 @@ public class Tower extends SubsystemBase {
     private String status = "stop";
     private static TalonSRX towerSrx = new TalonSRX(Constants.tower);
     private MedianFilter filter = new MedianFilter(3);
-    private DigitalInput digInput = new DigitalInput(0);
+    // private DigitalInput digInput = new DigitalInput(0);
     
     public Tower(Limelight limelight){
         towerSrx.configFactoryDefault();
@@ -23,8 +23,8 @@ public class Tower extends SubsystemBase {
         towerSrx.setNeutralMode(NeutralMode.Brake);      
         towerSrx.setInverted(true);
        
-        towerSrx.configPeakOutputForward(0.25,5);
-        towerSrx.configPeakOutputReverse(-0.25,5);
+        towerSrx.configPeakOutputForward(0.5,5);
+        towerSrx.configPeakOutputReverse(-0.5,5);
         towerSrx.configNominalOutputForward(0,Constants.kTimesOut);
         towerSrx.configNominalOutputReverse(0,Constants.kTimesOut);
         towerSrx.configSupplyCurrentLimit(supplyCurrentLimitConfiguration);
@@ -46,7 +46,7 @@ public class Tower extends SubsystemBase {
                 towerSrx.set(ControlMode.PercentOutput, 0);
                 status = "done";
             }else{
-                towerSrx.set(ControlMode.PercentOutput, horizenError);
+                towerSrx.set(ControlMode.PercentOutput, -horizenError);
                 status = "aimming";
             }
         }
@@ -58,7 +58,7 @@ public class Tower extends SubsystemBase {
     }
 
     public void towerForward(){
-        towerSrx.set(ControlMode.PercentOutput, 0.1);
+        towerSrx.set(ControlMode.PercentOutput, 0.17);
         status = "turn right";
     }
 
@@ -68,7 +68,7 @@ public class Tower extends SubsystemBase {
     }
 
     public void towerReverse(){
-        towerSrx.set(ControlMode.PercentOutput, -0.1);
+        towerSrx.set(ControlMode.PercentOutput, -0.17);
         status = "turn left";
     }
 
@@ -78,9 +78,9 @@ public class Tower extends SubsystemBase {
 
     @Override
     public void periodic(){
-        if(digInput.get()){
-            towerSrx.setSelectedSensorPosition(0,0,10);
-        }  
+        // if(digInput.get()){
+        //     towerSrx.setSelectedSensorPosition(0,0,10);
+        // }  
         SmartDashboard.putNumber("towerpo", towerSrx.getSelectedSensorPosition(0));
     }
 } 

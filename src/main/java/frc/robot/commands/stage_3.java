@@ -7,11 +7,12 @@ import frc.robot.subsystems.senior_high_one.*;
 public class stage_3 extends CommandBase{
     private Conveyor  m_conveyor;
     private Wing      m_wing;
-          
-    public stage_3(Conveyor  m_conveyor, Wing wing) {
+    private Intake    intake;
+    public stage_3(Conveyor  m_conveyor, Wing wing, Intake intake) {
         this.m_conveyor=m_conveyor;
         this.m_wing = wing;
-        addRequirements(m_conveyor, wing );
+        this.intake = intake;
+        addRequirements(m_conveyor, wing, intake);
     }
     @Override
     public void initialize() {
@@ -22,6 +23,7 @@ public class stage_3 extends CommandBase{
     public void execute() {
         m_conveyor.forward();
         m_wing.forward();
+        intake.slowForward();
     }
         
         // Called once the command ends or is interrupted.
@@ -29,6 +31,7 @@ public class stage_3 extends CommandBase{
     public void end(boolean interrupted) {
         m_conveyor.stop();
         m_wing.stop();
+        intake.stop();
     }
         
     // Returns true when the command should end.

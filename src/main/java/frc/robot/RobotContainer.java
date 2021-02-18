@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -36,7 +38,7 @@ public class RobotContainer {
   private ControlDrivetrain controlDrivetrain = new ControlDrivetrain();
   private TrajectoryDrivetrain trajectoryDrivetrain = new TrajectoryDrivetrain();
   private final SendableChooser<Command> chooser = new SendableChooser<Command>();
-
+  private UsbCamera frontCamera;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -44,6 +46,9 @@ public class RobotContainer {
     teleop();
     Compressor();
     configureButtonBindings();
+    frontCamera = CameraServer.getInstance().startAutomaticCapture();
+    frontCamera.setResolution(320, 240);
+    frontCamera.setFPS(3);
   }
 
   public void chooser(){
@@ -58,12 +63,14 @@ public class RobotContainer {
   private void configureButtonBindings() {
     new JoystickButton(joystick, Constants.Button.intake_wing)          .whenHeld(new stage_1(m_Intake,m_Wing));
     new JoystickButton(joystick, Constants.Button.arm)              .whenHeld(new Arm_motion(m_arm));
-    new JoystickButton(joystick, Constants.Button.intake_reverse)                .whenHeld(new RunCommand(()->m_Intake.reverse(), m_Intake)) 
-                                                                              .whenHeld(new RunCommand(()->m_Wing.reverse(), m_Wing))             
-                                                                              .whenHeld(new RunCommand(()->m_Conveyor.reverse(), m_Conveyor));
-    
-    new JoystickButton(findHitoABoyfriend, Constants.Xbox.shoot)                .whenHeld(new stage_3(m_Conveyor, m_Wing));
-    new JoystickButton(joystick, Constants.Xbox.flywheel)                          .whenHeld(new stage_2(m_Shooter));
+    new JoystickButton(joystick, Constants.Button.intake_reverse)                .whenHeld(new InstantCommand(()->m_Intake.reverse(), m_Intake)) 
+                                                                              .whenHeld(new InstantCommand(()->m_Wing.reverse(), m_Wing))             
+                                                                              .whenHeld(new InstantCommand(()->m_Conveyor.reverse(), m_Conveyor))
+                                                                              .whenReleased(new InstantCommand(()->m_Intake.stop(), m_Intake))
+                                                                              .whenReleased(()->m_Wing.stop(), m_Wing)
+                                                                              .whenReleased(()->m_Conveyor.stop(), m_Conveyor);
+    new JoystickButton(findHitoABoyfriend, Constants.Xbox.shoot)                .whenHeld(new stage_3(m_Conveyor, m_Wing, m_Intake));
+    new JoystickButton(findHitoABoyfriend, Constants.Xbox.flywheel)                          .whenHeld(new stage_2(m_Shooter));
     new JoystickButton(findHitoABoyfriend, Constants.Xbox.aim)                  .whenHeld(new RunCommand(()->m_tower.aimming(),m_tower))
                                                                                   .whenReleased(new InstantCommand(()->m_tower.towerStop(),m_tower))
                                                                                   .whenHeld(new RunCommand(()->m_Racker.PortDistance(),m_Racker))
@@ -78,6 +85,8 @@ public class RobotContainer {
                                                                                   .whenReleased(new InstantCommand(()->m_Racker.rackerstop(), m_Racker));
                            
     //new JoystickButton(joystick, 3)          .whenHeld(new RunCommand(()->m_Shooter.percentage()));
+  //   new JoystickButton(findHitoABoyfriend, 2)                         .whenHeld(new InstantCommand(()->m_Conveyor.forward()))
+  //                                                                     .whenReleased(new InstantCommand(()->m_Conveyor.stop()));
   }
 
   public void Status(){
@@ -92,6 +101,8 @@ public class RobotContainer {
   public void Compressor() {
     m_arm.Pneumatic_Status();
   }
+
+  
 
   public void teleop(){
     controlDrivetrain.setDefaultCommand(

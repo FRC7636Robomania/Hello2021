@@ -103,8 +103,19 @@ public class Racker extends SubsystemBase {
         filter.calculate(distance);
 
         
+<<<<<<< HEAD
          if(50>=distance&&distance>40){
             rackerSrx.set(ControlMode.Position, -4400);
+=======
+        if(35>=distance){
+            rackerSrx.set(ControlMode.Position, -2000);
+            status = "2000";
+        }else if(40>=distance&&distance>35){
+            rackerSrx.set(ControlMode.Position, -2700);
+            status = "2700";
+        }else if(50>=distance&&distance>40){
+            rackerSrx.set(ControlMode.Position, -2800);
+>>>>>>> 467f8fb2771c9120edd359539f2ec72acc12ca5c
             status = "2800";
         }else if(60>=distance&&distance>50){
             rackerSrx.set(ControlMode.Position, -4600);

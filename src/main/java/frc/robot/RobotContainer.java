@@ -63,7 +63,7 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     new JoystickButton(joystick, Constants.Button.intake_wing)          .whenHeld(new stage_1(m_Intake,m_Wing));
-    new JoystickButton(joystick, Constants.Button.arm)              .whenHeld(new Arm_motion(m_arm));
+    new JoystickButton(findHitoABoyfriend, Constants.Xbox.arm)              .whenHeld(new Arm_motion(m_arm));
     new JoystickButton(joystick, Constants.Button.intake_reverse)                .whenHeld(new InstantCommand(()->m_Intake.reverse(), m_Intake)) 
                                                                               .whenHeld(new InstantCommand(()->m_Wing.reverse(), m_Wing))             
                                                                               .whenHeld(new InstantCommand(()->m_Conveyor.reverse(), m_Conveyor))

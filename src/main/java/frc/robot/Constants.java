@@ -57,7 +57,7 @@ public final class Constants {
 
     public static class Button{
         public static final int intake_wing = 2;
-        public static final int arm = 3;
+        
         public static final int intake_reverse = 7;
 
     }
@@ -69,6 +69,7 @@ public final class Constants {
         public static final int flywheel = 5;
         public static final int shoot = 6;
         public static final int aim = 11;
+        public static final int arm = 12;
     }
 
     public static class Chassis{

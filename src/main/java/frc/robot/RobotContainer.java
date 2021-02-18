@@ -102,13 +102,17 @@ public class RobotContainer {
     m_arm.Pneumatic_Status();
   }
 
-  
-
+  double a;
   public void teleop(){
+    if(joystick.getRawButton(7)){
+      a = 0.75;
+    }else{
+      a = 1;
+    }
     controlDrivetrain.setDefaultCommand(
       new RunCommand(()->
-      controlDrivetrain.curvatureDrive(joystick.getY() * 0.4, 
-                                       joystick.getZ() * -0.4, 
+      controlDrivetrain.curvatureDrive(joystick.getY() * 0.4*a, 
+                                       joystick.getZ() * -0.4*a, 
                                        joystick.getTrigger()), 
         controlDrivetrain)
     );

@@ -25,8 +25,8 @@ import frc.robot.subsystems.senior_high_two.chassis.trajectory.TrajectoryFactory
 public class RobotContainer {
   private XboxController findHitoABoyfriend = new XboxController(0);
   private Joystick joystick = new Joystick(1);
-  private final Intake m_Intake = new Intake();
-  private final Arm m_arm = new Arm();
+  private Intake m_Intake = new Intake();
+  private Arm m_arm = new Arm();
   private Wing m_Wing = new Wing();
   private Limelight m_Limelight = new Limelight();
   private Tower m_tower = new Tower(m_Limelight);
@@ -57,24 +57,26 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     new JoystickButton(joystick, Constants.Button.intake_wing)          .whenHeld(new stage_1(m_Intake,m_Wing));
-    new JoystickButton(joystick, Constants.Button.flywheel)             .whenHeld(new stage_2(m_Shooter));
-    new JoystickButton(findHitoABoyfriend, Constants.Button.shoot)                .whenHeld(new stage_3(m_Conveyor, m_Wing));
-    new JoystickButton(findHitoABoyfriend, Constants.Button.arm)                  .whenHeld(new Arm_motion(m_arm));
-    new JoystickButton(findHitoABoyfriend, Constants.Button.aim)                  .whenHeld(new RunCommand(()->m_tower.aimming(),m_tower))
+    new JoystickButton(joystick, Constants.Button.arm)              .whenHeld(new Arm_motion(m_arm));
+    new JoystickButton(joystick, Constants.Button.intake_reverse)                .whenHeld(new RunCommand(()->m_Intake.reverse(), m_Intake)) 
+                                                                              .whenHeld(new RunCommand(()->m_Wing.reverse(), m_Wing))             
+                                                                              .whenHeld(new RunCommand(()->m_Conveyor.reverse(), m_Conveyor));
+    
+    new JoystickButton(findHitoABoyfriend, Constants.Xbox.shoot)                .whenHeld(new stage_3(m_Conveyor, m_Wing));
+    new JoystickButton(joystick, Constants.Xbox.flywheel)                          .whenHeld(new stage_2(m_Shooter));
+    new JoystickButton(findHitoABoyfriend, Constants.Xbox.aim)                  .whenHeld(new RunCommand(()->m_tower.aimming(),m_tower))
                                                                                   .whenReleased(new InstantCommand(()->m_tower.towerStop(),m_tower))
                                                                                   .whenHeld(new RunCommand(()->m_Racker.PortDistance(),m_Racker))
                                                                                   .whenReleased(new InstantCommand(()->m_Racker.rackerstop(),m_Racker));
-    new JoystickButton(findHitoABoyfriend, Constants.Button.tower_left)           .whenHeld(new InstantCommand(()->m_tower.towerForward(),m_tower))
+    new JoystickButton(findHitoABoyfriend, Constants.Xbox.tower_left)           .whenHeld(new InstantCommand(()->m_tower.towerForward(),m_tower))
                                                                                   .whenReleased(new InstantCommand(()->m_tower.towerStop(), m_tower));
-    new JoystickButton(findHitoABoyfriend, Constants.Button.tower_right)          .whenHeld(new InstantCommand(()->m_tower.towerReverse(), m_tower))
+    new JoystickButton(findHitoABoyfriend, Constants.Xbox.tower_right)          .whenHeld(new InstantCommand(()->m_tower.towerReverse(), m_tower))
                                                                                   .whenReleased(new InstantCommand(()->m_tower.towerStop(), m_tower));
-    new JoystickButton(findHitoABoyfriend, Constants.Button.ranker_up)            .whenHeld(new InstantCommand(()->m_Racker.rackerForward(), m_Racker))
+    new JoystickButton(findHitoABoyfriend, Constants.Xbox.ranker_up)            .whenHeld(new InstantCommand(()->m_Racker.rackerForward(), m_Racker))
                                                                                   .whenReleased(new InstantCommand(()->m_Racker.rackerstop(), m_Racker));
-    new JoystickButton(findHitoABoyfriend, Constants.Button.ranker_down)          .whenHeld(new InstantCommand(()->m_Racker.rackerReverse(), m_Racker))
+    new JoystickButton(findHitoABoyfriend, Constants.Xbox.ranker_down)          .whenHeld(new InstantCommand(()->m_Racker.rackerReverse(), m_Racker))
                                                                                   .whenReleased(new InstantCommand(()->m_Racker.rackerstop(), m_Racker));
-    new JoystickButton(joystick, 8)                .whenHeld(new RunCommand(()->m_Intake.reverse(), m_Intake)) 
-                                                   .whenHeld(new RunCommand(()->m_Wing.reverse(), m_Wing))             
-                                                   .whenHeld(new RunCommand(()->m_Conveyor.reverse(), m_Conveyor));                       
+                           
     //new JoystickButton(joystick, 3)          .whenHeld(new RunCommand(()->m_Shooter.percentage()));
   }
 

@@ -27,7 +27,7 @@ public class DrivetrainBase extends SubsystemBase {
   protected static WPI_TalonFX leftFol  = new WPI_TalonFX(Chassis.leftFollewer);
   protected static WPI_TalonFX rightMas = new WPI_TalonFX(Chassis.rightMaster);
   protected static WPI_TalonFX rightFol = new WPI_TalonFX(Chassis.rightFollower);
-  protected AHRS ahrs = new AHRS(SPI.Port.kMXP);
+  protected static AHRS ahrs = new AHRS(SPI.Port.kMXP);
   private   static boolean isFirst = true; 
   private SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration = new SupplyCurrentLimitConfiguration(true, 40, 50, 1);
 

@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Arm extends SubsystemBase {
   private static DoubleSolenoid d = new DoubleSolenoid(0,1);
   protected static Compressor c = new Compressor(0);
-  static int count = 2;
+  static int count = 0;
   String status = "in";
 
   public Arm() {

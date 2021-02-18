@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.XboxController;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -54,15 +56,20 @@ public final class Constants {
     }
 
     public static class Button{
+        public static final int intake_wing = 2;
+        public static final int arm = 3;
+        public static final int intake_reverse = 7;
+
+    }
+    public static class Xbox{
         public static final int tower_left = 1;
         public static final int tower_right = 3;
-        public static final int intake_wing = 2;
-        public static final int arm = 4;
+        public static final int ranker_up = 2;
+        public static final int ranker_down = 4;
         public static final int flywheel = 5;
-        public static final int aim = 6;
-        public static final int shoot = 7;
-        public static final int ranker_up = 11;
-        public static final int ranker_down = 12;
+        public static final int shoot = 6;
+        public static final int aim = 11;
+        public static final int aim2 = 12;
     }
 
     public static class Chassis{

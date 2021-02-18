@@ -59,7 +59,7 @@ public class Racker extends SubsystemBase {
     public void reset() {
         // rackerSrx.overrideLimitSwitchesEnable(false);
         rackerSrx.setSelectedSensorPosition(1000000, 0, Constants.kTimesOut);
-        double[] history = new double[5];
+        double[] history = new double[7];
         
         int count = 0;
         while (true) {

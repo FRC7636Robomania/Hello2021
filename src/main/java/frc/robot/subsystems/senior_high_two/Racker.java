@@ -137,7 +137,7 @@ public class Racker extends SubsystemBase {
             status = "11900";
         }else if(distance>130){
             rackerSrx.set(ControlMode.Position, -11400); 
-            status = "12050";
+            status = "11400";
         }
     }
     public String racker_status(){

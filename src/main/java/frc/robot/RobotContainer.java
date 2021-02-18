@@ -107,8 +107,8 @@ public class RobotContainer {
   public void teleop(){
     controlDrivetrain.setDefaultCommand(
       new RunCommand(()->
-      controlDrivetrain.curvatureDrive(joystick.getY() * 0.4, 
-                                       joystick.getZ() * -0.4, 
+      controlDrivetrain.curvatureDrive(joystick.getY() * 0.45, 
+                                       joystick.getZ() * -0.35, 
                                        joystick.getTrigger()), 
         controlDrivetrain)
     );

@@ -51,7 +51,7 @@ public final class Constants {
 
         public static final double towerConst    = 0.015;
         public static final int rackerIZone      = 100;
-        public static final int portHigh         = 250;     //cm
+        public static final int portHigh         = 225;     //cm
         public static final int robotHigh        = 55+5;    //cm 
     }
 

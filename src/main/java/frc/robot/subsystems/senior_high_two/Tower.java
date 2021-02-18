@@ -42,7 +42,7 @@ public class Tower extends SubsystemBase {
         double targetArea = Limelight.getTy();
         filter.calculate(horizenError);
         if(targetArea != 0){
-            if((Limelight.getTx()<0.1) && (Limelight.getTx()>(-0.1))){
+            if((Limelight.getTx()<0.01) && (Limelight.getTx()>(-0.01))){
                 towerSrx.set(ControlMode.PercentOutput, 0);
                 status = "done";
             }else{

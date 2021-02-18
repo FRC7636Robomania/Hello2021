@@ -71,14 +71,23 @@ public class Shooter extends SubsystemBase {
 
   public void forward() {
     flywheelRight.follow(flywheelLeft);
-    if(Limelight.getdistances() <= 130) {
+    if(Limelight.getdistances()<=80){
+      flywheelLeft.config_kF(0, 0.05);
+      flywheelRight.config_kF(0, 0.05);
+      flywheelLeft.set(ControlMode.Velocity, 8000);
+    }
+    else if(Limelight.getdistances() <= 130) {
       flywheelLeft.config_kF(0, Constants.Value.fly_kFCLOSE);
       flywheelRight.config_kF(0, Constants.Value.fly_kFCLOSE);
       flywheelLeft.set(ControlMode.Velocity, Constants.Value.fly_speedCLOSE);
-    }else{
+    }else if(Limelight.getdistances() <=180){
       flywheelLeft.config_kF(0, Constants.Value.fly_kFAR);
       flywheelRight.config_kF(0, Constants.Value.fly_kFAR);
       flywheelLeft.set(ControlMode.Velocity, Constants.Value.fly_speedFAR);
+    }else{
+      flywheelLeft.config_kF(0, 0.05);
+      flywheelRight.config_kF(0, 0.05);
+      flywheelLeft.set(ControlMode.Velocity, 11800);
     }
   }
 

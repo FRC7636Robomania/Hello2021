@@ -101,7 +101,7 @@ public class Racker extends SubsystemBase {
     public void PortDistance(){
         double distance = Limelight.getdistances();
         filter.calculate(distance);
-
+        
         if(35>=distance){
             rackerSrx.set(ControlMode.Position, -2000);
             status = "2000";
@@ -112,19 +112,19 @@ public class Racker extends SubsystemBase {
             rackerSrx.set(ControlMode.Position, -2800);
             status = "2800";
         }else if(60>=distance&&distance>50){
-            rackerSrx.set(ControlMode.Position, -2900);
+            rackerSrx.set(ControlMode.Position, -4600);
             status = "2900";
         }else if(70>=distance&&distance>60){
-            rackerSrx.set(ControlMode.Position, -4100);
+            rackerSrx.set(ControlMode.Position, -5500);
             status = "4100";
         }else if(80>=distance&&distance>70){
-            rackerSrx.set(ControlMode.Position, -6000);
+            rackerSrx.set(ControlMode.Position, -5800);
             status = "6000";
         }else if(90>=distance&&distance>80){
             rackerSrx.set(ControlMode.Position, -10000);
             status = "10000";
         }else if(100>=distance&&distance>90){
-            rackerSrx.set(ControlMode.Position, -10600);
+            rackerSrx.set(ControlMode.Position, -10400);
             status = "10600";
         }else if(110>=distance&&distance>100){
             rackerSrx.set(ControlMode.Position, -11000);
@@ -136,7 +136,7 @@ public class Racker extends SubsystemBase {
             rackerSrx.set(ControlMode.Position, -11900);
             status = "11900";
         }else if(distance>130){
-            rackerSrx.set(ControlMode.Position, -12050);
+            rackerSrx.set(ControlMode.Position, -11400); 
             status = "12050";
         }
     }

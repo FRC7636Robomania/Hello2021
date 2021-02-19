@@ -4,6 +4,7 @@
 
 package frc.robot.commands.auto;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.Path;
@@ -19,6 +20,8 @@ import frc.robot.subsystems.senior_high_one.Wing;
 import frc.robot.subsystems.senior_high_two.Racker;
 import frc.robot.subsystems.senior_high_two.Shooter;
 import frc.robot.subsystems.senior_high_two.Tower;
+import frc.robot.subsystems.senior_high_two.chassis.ControlDrivetrain;
+import frc.robot.subsystems.senior_high_two.chassis.DrivetrainBase;
 import frc.robot.subsystems.senior_high_two.chassis.trajectory.TrajectoryFactory;
 import frc.robot.subsystems.senior_high_two.chassis.trajectory.TrajectorySystem;
 
@@ -27,15 +30,19 @@ import frc.robot.subsystems.senior_high_two.chassis.trajectory.TrajectorySystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class LeftUp extends SequentialCommandGroup {
   /** Creates a new LeftUp. */
-  public LeftUp(TrajectorySystem drivetrain, Racker rack, Tower tower, Intake intake, Wing wing, Shooter shooter, Conveyor conveyor, Arm arm) {
+  public LeftUp(ControlDrivetrain base, TrajectorySystem drivetrain, Racker rack, Tower tower, Intake intake, Wing wing, Shooter shooter, Conveyor conveyor, Arm arm) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     // addCommands(new AutoAim(tower, rack)); // aim
-    addCommands(new stage_2(shooter).withTimeout(4));
-    addCommands(new WaitCommand(0.8));
-    // addCommands(new Arm_motion(arm).withTimeout(1.5));
-    addCommands(new stage_3(conveyor, wing, intake).withTimeout(2.2));
-    addCommands(new Move(drivetrain).withTimeout(1.2));
+    addCommands(new InstantCommand(()->intake.slowForward(), intake));
+    addCommands(new InstantCommand(()->wing.forward(), wing));
+
+    addCommands(new Shooting(shooter, conveyor).withTimeout(5));
+    // // addCommands(new Arm_motion(arm).withTimeout(1.5));
+    addCommands(new InstantCommand(()->intake.stop(), intake));
+    addCommands(new InstantCommand(()->wing.stop(), wing)); 
+
+    addCommands(new Move(base).withTimeout(1.0));
     // addCommands(new stage_1(intake, wing).withTimeout(7));
     // addCommands(TrajectoryCommand.build(TrajectoryFactory.getTrajectory(Path.LeftUp), drivetrain, OutputMode.VOLTAGE, drivetrain));
   }

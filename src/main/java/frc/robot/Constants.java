@@ -72,8 +72,8 @@ public final class Constants {
     }
 
     public static class Chassis{
-        public static final int leftMaster    = 19;
-        public static final int leftFollewer  = 18;
+        public static final int leftMaster    = 18;
+        public static final int leftFollewer  = 19;
         public static final int rightMaster   = 21;
         public static final int rightFollower = 20;
         public static final double distancePerPulse = 0.1524 * Math.PI / 2048 / 9.7;

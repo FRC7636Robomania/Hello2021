@@ -11,12 +11,17 @@ public class Arm extends SubsystemBase {
   protected static Compressor c = new Compressor(0);
   static int count = 0;
   String status = "in";
+  boolean s = true;
 
   public Arm() {
   }
 
+  public void enable(){
+    c.setClosedLoopControl(true);
+  }
   public void Pneumatic_Status(){
-    c.setClosedLoopControl(false);
+    c.setClosedLoopControl(s);
+    s = !s;
   }
 
   public void Arm_motion(){

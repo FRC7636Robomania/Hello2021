@@ -53,7 +53,7 @@ public class RobotContainer {
   }
 
   public void chooser(){
-    chooser.addOption("LeftUp", new LeftUp(trajectoryDrivetrain, 
+    chooser.addOption("LeftUp", new LeftUp(controlDrivetrain, trajectoryDrivetrain, 
                                            m_Racker, m_tower, m_Intake, 
                                            m_Wing, m_Shooter, m_Conveyor, m_arm));
     chooser.setDefaultOption("Null", null);
@@ -62,6 +62,7 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
+    new JoystickButton(joystick, 10).whenHeld(new InstantCommand(()->m_arm.Pneumatic_Status()));
     new JoystickButton(joystick, Constants.Button.intake_wing)          .whenHeld(new stage_1(m_Intake,m_Wing));
     new JoystickButton(joystick, Constants.Button.arm)              .whenHeld(new Arm_motion(m_arm));
     new JoystickButton(joystick, Constants.Button.rateChanger)        .whenHeld(new InstantCommand(()->controlDrivetrain.changeRate()));
@@ -101,7 +102,7 @@ public class RobotContainer {
     Shuffleboard.getTab("Statue").addBoolean("Racker_limit", m_Racker::rack_limit);
   }
   public void Compressor() {
-    m_arm.Pneumatic_Status();
+    m_arm.enable();
   }
 
   public void teleop(){

@@ -56,6 +56,6 @@ public void periodic(){
     SmartDashboard.putNumber("tx", Limelight.getTx());
     SmartDashboard.putNumber("ty",Limelight.getTy());
     SmartDashboard.putNumber("ta",Limelight.getarea());
-    SmartDashboard.putNumber("distance", Limelight.getdistances());
+    SmartDashboard.putNumber("distance", Limelight.getdistances() * 2.5);
 }
 }

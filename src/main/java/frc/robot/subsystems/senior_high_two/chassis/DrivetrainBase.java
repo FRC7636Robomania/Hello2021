@@ -8,6 +8,7 @@
 package frc.robot.subsystems.senior_high_two.chassis;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.kauailabs.navx.frc.AHRS;
@@ -61,7 +62,8 @@ public class DrivetrainBase extends SubsystemBase {
     MotorFactory.configPF(rightMas, 0, 0, 0);
     leftFol.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 255);
     rightFol.setStatusFramePeriod(StatusFrameEnhanced.Status_1_General, 255);
-    
+    leftMas.setNeutralMode(NeutralMode.Coast);
+    rightMas.setNeutralMode(NeutralMode.Coast);
     
     ahrs.reset();
   }

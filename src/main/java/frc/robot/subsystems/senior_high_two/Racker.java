@@ -122,13 +122,13 @@ public class Racker extends SubsystemBase {
             rackerSrx.set(ControlMode.Position, -10400);
             status = "10600";
         }else if(110>=distance&&distance>100){
-            rackerSrx.set(ControlMode.Position, -11000);
+            rackerSrx.set(ControlMode.Position, -10400);
             status = "11000";
-        }else if(120>=distance&&distance>100){
-            rackerSrx.set(ControlMode.Position, -11500);
+        }else if(120>=distance&&distance>110){
+            rackerSrx.set(ControlMode.Position, -11250);
             status = "11500";
         }else if(130>=distance&&distance>120){
-            rackerSrx.set(ControlMode.Position, -11900);
+            rackerSrx.set(ControlMode.Position, -11300);
             status = "11900";
         }else if(distance>130){
             rackerSrx.set(ControlMode.Position, -11400); 

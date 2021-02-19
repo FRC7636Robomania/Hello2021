@@ -18,6 +18,6 @@ public class AutoAim extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new RunCommand(()->tower.aimming(), tower).withTimeout(0.8));
-    addCommands(new RunCommand(()->rack.PortDistance(), rack).withTimeout(0.8));
+    addCommands(new RunCommand(()->rack.PortDistance(), rack).withTimeout(1.0));
   }
 }

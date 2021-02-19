@@ -17,7 +17,7 @@ public class ControlDrivetrain extends DrivetrainBase {
 
   }
   public void changeRate(){
-    double another = 0.75d;
+    double another = 0.5d;
     if(rate > another){
       rate = another;
     }else{

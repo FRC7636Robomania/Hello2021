@@ -22,8 +22,8 @@ public class Tower extends SubsystemBase {
         towerSrx.setNeutralMode(NeutralMode.Brake);      
         towerSrx.setInverted(true);
        
-        towerSrx.configPeakOutputForward(0.5,5);
-        towerSrx.configPeakOutputReverse(-0.5,5);
+        towerSrx.configPeakOutputForward(0.25,5);
+        towerSrx.configPeakOutputReverse(-0.25,5);
         towerSrx.configNominalOutputForward(0,Constants.kTimesOut);
         towerSrx.configNominalOutputReverse(0,Constants.kTimesOut);
         towerSrx.configSupplyCurrentLimit(supplyCurrentLimitConfiguration);
@@ -41,7 +41,7 @@ public class Tower extends SubsystemBase {
         double targetArea = Limelight.getTy();
         filter.calculate(horizenError);
         if(targetArea != 0){
-            if((Limelight.getTx()<0.01) && (Limelight.getTx()>(-0.01))){
+            if((Limelight.getTx()<0.005) && (Limelight.getTx()>(-0.005))){
                 towerSrx.set(ControlMode.PercentOutput, 0);
                 status = "done";
             }else{

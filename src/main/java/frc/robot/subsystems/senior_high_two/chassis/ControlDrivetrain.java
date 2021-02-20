@@ -36,7 +36,7 @@ public class ControlDrivetrain extends DrivetrainBase {
     }
   }
 
-  public void curvatureDrive(double xSpeed, double zRotation, boolean isQuickTurn){
+  public void curvatureDrive(double xSpeed, double zRotation, boolean isQuickTurn, boolean isFast){
     xSpeed = MathUtil.clamp(xSpeed, -1.0, 1.0);
     if(xSpeed < 0.05 & xSpeed > -0.05){
       xSpeed = 0;
@@ -97,9 +97,8 @@ public class ControlDrivetrain extends DrivetrainBase {
     }
     leftout=  leftMotorOutput;
     rightout = rightMotorOutput;
-
-    leftMas.set(ControlMode.PercentOutput, -leftout * rate);
-    rightMas.set(ControlMode.PercentOutput, -rightout * rate);
+    leftMas.set(ControlMode.PercentOutput, -leftout * rate * (isFast ? 1.5 : 1));
+    rightMas.set(ControlMode.PercentOutput, -rightout * rate * (isFast ? 1.5 : 1));
   }
 
   @Override

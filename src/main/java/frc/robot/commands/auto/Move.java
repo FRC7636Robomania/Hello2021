@@ -26,7 +26,7 @@ public class Move extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.curvatureDrive(-0.25, 0, false);
+    drive.curvatureDrive(-0.25, 0, false, false);
   }
 
   // Called once the command ends or is interrupted.

@@ -18,12 +18,13 @@ public class Tower extends SubsystemBase {
     public Tower(Limelight limelight){
         towerSrx.configFactoryDefault();
         towerSrx.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, Constants.kTimesOut);
+        // towerSrx.setSelectedSensorPosition(0);
 
         towerSrx.setNeutralMode(NeutralMode.Brake);      
         towerSrx.setInverted(true);
        
-        towerSrx.configPeakOutputForward(0.25,5);
-        towerSrx.configPeakOutputReverse(-0.25,5);
+        towerSrx.configPeakOutputForward(0.2,5);
+        towerSrx.configPeakOutputReverse(-0.2,5);
         towerSrx.configNominalOutputForward(0,Constants.kTimesOut);
         towerSrx.configNominalOutputReverse(0,Constants.kTimesOut);
         towerSrx.configSupplyCurrentLimit(supplyCurrentLimitConfiguration);

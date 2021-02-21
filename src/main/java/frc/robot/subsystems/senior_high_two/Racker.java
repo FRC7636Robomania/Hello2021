@@ -26,7 +26,7 @@ public class Racker extends SubsystemBase {
 
         rackerSrx.configClosedLoopPeakOutput(0, 0.5);
         rackerSrx.setNeutralMode(NeutralMode.Brake);
-        rackerSrx.configNeutralDeadband(0.2);
+        rackerSrx.configNeutralDeadband(0.05);
         rackerSrx.setInverted(false);
         rackerSrx.configPeakOutputForward(0.5);
         rackerSrx.configPeakOutputReverse(-0.5);
@@ -36,10 +36,11 @@ public class Racker extends SubsystemBase {
         rackerSrx.config_kI(0, Constants.Value.rackerKI);
         rackerSrx.config_IntegralZone(0, Constants.Value.rackerIZone);
 
-        rackerSrx.setSelectedSensorPosition(0, 0, Constants.kTimesOut);
+        rackerSrx.setSelectedSensorPosition(-11580, 0, Constants.kTimesOut);
         rackerSrx.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
         rackerSrx.configClearPositionOnLimitF(true, 10);
-        // ????  
+        rackerSrx.configForwardSoftLimitThreshold(-2500);
+        rackerSrx.configForwardSoftLimitEnable(true);
     }
 
     public void rackerForward() {
@@ -61,7 +62,6 @@ public class Racker extends SubsystemBase {
         // rackerSrx.overrideLimitSwitchesEnable(false);
         rackerSrx.setSelectedSensorPosition(1000000, 0, Constants.kTimesOut);
         double[] history = new double[5];
-        
         int count = 0;
         while (true) {
             double max = Double.MIN_VALUE, min = Double.MAX_VALUE;
@@ -116,22 +116,22 @@ public class Racker extends SubsystemBase {
             rackerSrx.set(ControlMode.Position, -5800);
             status = "6000";
         }else if(90>=distance&&distance>80){
-            rackerSrx.set(ControlMode.Position, -10000);
+            rackerSrx.set(ControlMode.Position, -9625);
             status = "10000";
         }else if(100>=distance&&distance>90){
-            rackerSrx.set(ControlMode.Position, -10400);
+            rackerSrx.set(ControlMode.Position, -9500);
             status = "10600";
         }else if(110>=distance&&distance>100){
-            rackerSrx.set(ControlMode.Position, -10400);
+            rackerSrx.set(ControlMode.Position, -9828);
             status = "11000";
         }else if(120>=distance&&distance>110){
-            rackerSrx.set(ControlMode.Position, -11250);
+            rackerSrx.set(ControlMode.Position, -9780);
             status = "11500";
         }else if(130>=distance&&distance>120){
-            rackerSrx.set(ControlMode.Position, -11300);
+            rackerSrx.set(ControlMode.Position, -10920);
             status = "11900";
         }else if(distance>130){
-            rackerSrx.set(ControlMode.Position, -11400); 
+            rackerSrx.set(ControlMode.Position, -11600); 
             status = "11400";
         }
            

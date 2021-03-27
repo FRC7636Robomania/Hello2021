@@ -53,10 +53,10 @@ public class RobotContainer {
   }
 
   public void chooser(){
-    chooser.addOption("LeftUp", new LeftUp(controlDrivetrain, trajectoryDrivetrain, 
+    chooser.setDefaultOption("LeftUp", new LeftUp(controlDrivetrain, trajectoryDrivetrain, 
                                            m_Racker, m_tower, m_Intake, 
                                            m_Wing, m_Shooter, m_Conveyor, m_arm));
-    chooser.setDefaultOption("Null", null);
+    chooser.addOption("Null", null);
     chooser.addOption("one", TrajectoryCommand.build(TrajectoryFactory.getTrajectory("output/test.wpilib.json"), trajectoryDrivetrain, TrajectoryCommand.OutputMode.VOLTAGE, trajectoryDrivetrain));
     SmartDashboard.putData(chooser);
   }
@@ -86,8 +86,10 @@ public class RobotContainer {
                                                                                   .whenReleased(new InstantCommand(()->m_Racker.rackerstop(), m_Racker));
     new JoystickButton(findHitoABoyfriend, Constants.Xbox.ranker_down)          .whenHeld(new InstantCommand(()->m_Racker.rackerReverse(), m_Racker))
                                                                                   .whenReleased(new InstantCommand(()->m_Racker.rackerstop(), m_Racker));
-                           
-    //new JoystickButton(joystick, 3)          .whenHeld(new RunCommand(()->m_Shooter.percentage()));
+
+    new JoystickButton(findHitoABoyfriend, Constants.Xbox.record).whenHeld(new InstantCommand(()->m_Racker.add()));
+    new JoystickButton(findHitoABoyfriend, Constants.Xbox.show).whenHeld(new InstantCommand(()->m_Racker.printAll()));
+                                                                                  //new JoystickButton(joystick, 3)          .whenHeld(new RunCommand(()->m_Shooter.percentage()));
   //   new JoystickButton(findHitoABoyfriend, 2)                         .whenHeld(new InstantCommand(()->m_Conveyor.forward()))
   //                                                                     .whenReleased(new InstantCommand(()->m_Conveyor.stop()));
   }
@@ -108,9 +110,10 @@ public class RobotContainer {
   public void teleop(){
     controlDrivetrain.setDefaultCommand(
       new RunCommand(()->
-      controlDrivetrain.curvatureDrive(joystick.getY() * 0.4, 
-                                       joystick.getZ() * -0.4, 
-                                       joystick.getTrigger(),joystick.getRawButton(4)), 
+      controlDrivetrain.curvatureDrive(joystick.getY() * 0.5, 
+                                       joystick.getZ() * -0.35, 
+                                       joystick.getTrigger(), 
+                                       joystick.getRawButton(4)),
         controlDrivetrain)
     );
   }
@@ -120,6 +123,8 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return chooser.getSelected();
+    return new LeftUp(controlDrivetrain, trajectoryDrivetrain, 
+    m_Racker, m_tower, m_Intake, 
+    m_Wing, m_Shooter, m_Conveyor, m_arm);
   }
 }

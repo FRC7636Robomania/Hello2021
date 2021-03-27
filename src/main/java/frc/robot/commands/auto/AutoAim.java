@@ -4,6 +4,7 @@
 
 package frc.robot.commands.auto;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.senior_high_two.Racker;
@@ -18,6 +19,8 @@ public class AutoAim extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new RunCommand(()->tower.aimming(), tower).withTimeout(0.8));
+    addCommands(new InstantCommand(()->tower.towerStop(), tower));
     addCommands(new RunCommand(()->rack.PortDistance(), rack).withTimeout(1.0));
+    addCommands(new InstantCommand(()->rack.rackerstop(), rack));
   }
 }

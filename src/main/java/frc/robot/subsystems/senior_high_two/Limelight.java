@@ -5,6 +5,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.MedianFilter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Limelight extends SubsystemBase{
@@ -13,6 +14,7 @@ public class Limelight extends SubsystemBase{
     private static NetworkTableEntry tx = table.getEntry("tx");
     private static NetworkTableEntry ty = table.getEntry("ty");
     private static NetworkTableEntry ta = table.getEntry("ta");
+    private static MedianFilter filter = new MedianFilter(7);
 
     double x = tx.getDouble(0.0);
     double y = ty.getDouble(0.0);
@@ -38,16 +40,15 @@ public class Limelight extends SubsystemBase{
     
     public static double getTx() {
         double x = tx.getDouble(0.0);
-        return x;
+        return x + 3;
     }
     
     public static double getTy() {
-        double y = ty.getDouble(0.0);
-        return y;
+        return filter.calculate(ty.getDouble(0.0));
     }
     
     public static double getdistances(){
-        double distance = (250-55)/(Math.tan(Math.toRadians(54+Limelight.getTy())));
+        double distance = (206-58)/(Math.tan(Math.toRadians(54+Limelight.getTy())));
         return distance;
     }
 

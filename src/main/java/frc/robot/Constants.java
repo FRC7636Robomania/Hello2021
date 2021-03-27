@@ -47,7 +47,7 @@ public final class Constants {
         public static final double rackerKP      = 0.45;
         public static final double rackerKI      = 0.001;
 
-        public static final double towerConst    = 0.02;
+        public static final double towerConst    = 0.013;
         public static final int rackerIZone      = 100;
         public static final int portHigh         = 250;     //cm
         public static final int robotHigh        = 55+5;    //cm 
@@ -69,6 +69,8 @@ public final class Constants {
         public static final int flywheel = 5;
         public static final int shoot = 6;
         public static final int aim = 11;
+        public static final int record = 12;
+        public static final int show = 8;
     }
 
     public static class Chassis{

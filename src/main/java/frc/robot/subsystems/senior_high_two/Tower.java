@@ -12,18 +12,19 @@ public class Tower extends SubsystemBase {
     private SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration = new SupplyCurrentLimitConfiguration(true, 10, 10, 1);
     private String status = "stop";
     private static TalonSRX towerSrx = new TalonSRX(Constants.tower);
-    private MedianFilter filter = new MedianFilter(3);
+    private static final double basicPower = 0.065;
     // private DigitalInput digInput = new DigitalInput(0);
     
     public Tower(Limelight limelight){
         towerSrx.configFactoryDefault();
         towerSrx.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, Constants.kTimesOut);
+        towerSrx.setSelectedSensorPosition(0);
 
         towerSrx.setNeutralMode(NeutralMode.Brake);      
         towerSrx.setInverted(true);
        
-        towerSrx.configPeakOutputForward(0.25,5);
-        towerSrx.configPeakOutputReverse(-0.25,5);
+        towerSrx.configPeakOutputForward(0.2,5);
+        towerSrx.configPeakOutputReverse(-0.2,5);
         towerSrx.configNominalOutputForward(0,Constants.kTimesOut);
         towerSrx.configNominalOutputReverse(0,Constants.kTimesOut);
         towerSrx.configSupplyCurrentLimit(supplyCurrentLimitConfiguration);
@@ -33,21 +34,41 @@ public class Tower extends SubsystemBase {
         towerSrx.configForwardSoftLimitEnable(true, 0);
         towerSrx.configReverseSoftLimitEnable(true, 0);
         towerSrx.setNeutralMode(NeutralMode.Brake);
+        towerSrx.configVoltageCompSaturation(10.5);
+        towerSrx.enableVoltageCompensation(true);
 
     }
 
     public void aimming(){
-        double horizenError = Limelight.getTx()*Constants.Value.towerConst;
-        double targetArea = Limelight.getTy();
-        filter.calculate(horizenError);
-        if(targetArea != 0){
-            if((Limelight.getTx()<0.005) && (Limelight.getTx()>(-0.005))){
-                towerSrx.set(ControlMode.PercentOutput, 0);
-                status = "done";
+        double horizon = -Limelight.getTx() * Constants.Value.towerConst;
+        double targetArea = Limelight.getarea();
+        if(targetArea > 0 && Math.abs(Limelight.getTx()) > 0.095){
+
+            if(Math.abs(Limelight.getTx()) < 1){
+                if(horizon > 0){
+                    horizon += basicPower - 0.0037;
+                }else if(horizon < 0){
+                    horizon -= (basicPower - 0.0037);
+                }
+                towerSrx.set(ControlMode.PercentOutput, horizon);
+            }else if (Math.abs(Limelight.getTx()) <= 3.8){
+                if(horizon > 0){
+                    horizon += basicPower - 0.005;
+                }else if(horizon < 0){
+                    horizon -= (basicPower -0.005);
+                }
+                towerSrx.set(ControlMode.PercentOutput, horizon);
+            }else if (Math.abs(Limelight.getTx()) <= 5){
+                if(horizon > 0){
+                    horizon += basicPower - 0.009;
+                }else if(horizon < 0){
+                    horizon -= (basicPower -0.009);
+                }
+                towerSrx.set(ControlMode.PercentOutput, horizon);
             }else{
-                towerSrx.set(ControlMode.PercentOutput, -horizenError);
-                status = "aimming";
+                towerSrx.set(ControlMode.PercentOutput, horizon);
             }
+            status = "aimming";
         }
         else{
             towerSrx.set(ControlMode.PercentOutput, 0);

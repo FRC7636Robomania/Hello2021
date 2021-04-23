@@ -64,15 +64,15 @@ public final class Constants {
 
     }
     public static class Xbox{
-        public static final int tower_left = 1;
-        public static final int tower_right = 3;
-        public static final int ranker_up = 2;
-        public static final int ranker_down = 4;
-        public static final int flywheel = 5;
-        public static final int shoot = 6;
-        public static final int aim = 11;
-        public static final int record = 12;
-        public static final int show = 8;
+        public static final int tower_left = 2;
+        public static final int tower_right = 1;
+        public static final int ranker_up = 8;
+        public static final int ranker_down = 7;
+        public static final int flywheel = 6;
+        public static final int shoot = 4;
+        public static final int aim = 3;
+       // public static final int record = 12; 
+       //public static final int show = 11;
     }
 
     public static class Chassis{

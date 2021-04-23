@@ -41,14 +41,16 @@ public final class Constants {
         public static final double fly_speedFAR     = 11700;
         public static final double fly_speedCLOSE   = 11000;
 
-        public static final double fly_kp        = 0.1;
+        public static final double fly_kp        = 0.15;
+        public static final double fly_kD        = 0.05;
         public static final double fly_kFCLOSE   = 0.05;
         public static final double fly_kFAR      = 0.05;
-        public static final double rackerKP      = 0.45;
-        public static final double rackerKI      = 0.001;
+        public static final double rackerKP      = 0.4;
+        public static final double rackerKI      = 0.008;
+        public static final double rackerKD      = 0.04;
 
-        public static final double towerConst    = 0.013;
-        public static final int rackerIZone      = 100;
+        public static final double towerConst    = 0.01;
+        public static final int rackerIZone      = 300;
         public static final int portHigh         = 250;     //cm
         public static final int robotHigh        = 55+5;    //cm 
     }
@@ -74,17 +76,17 @@ public final class Constants {
     }
 
     public static class Chassis{
-        public static final int leftMaster    = 18;
-        public static final int leftFollewer  = 19;
-        public static final int rightMaster   = 21;
-        public static final int rightFollower = 20;
+        public static final int leftMaster    = 20;
+        public static final int leftFollewer  = 21;
+        public static final int rightMaster   = 18;
+        public static final int rightFollower = 19;
         public static final double distancePerPulse = 0.1524 * Math.PI / 2048 / 9.7;
         public static final double wheelPitch = 0.7407;
 
-        public static final boolean isRightMotorInvert = false;
-        public static final boolean isLeftMotorInvert = true;
-        public static final boolean isRightPhaseInvert = false;
-        public static final boolean isLeftPhaseInvert = true;
+        public static final boolean isRightMotorInvert = true;
+        public static final boolean isLeftMotorInvert = false;
+        public static final boolean isRightPhaseInvert = true;
+        public static final boolean isLeftPhaseInvert = false;
 
         public static final double kS = 0.9;
         public static final double kV = 0.2;

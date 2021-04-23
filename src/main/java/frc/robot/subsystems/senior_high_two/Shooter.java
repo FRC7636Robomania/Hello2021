@@ -34,7 +34,8 @@ public class Shooter extends SubsystemBase {
     //adjust kP
     flywheelLeft.config_kP(0,Value.fly_kp);
     flywheelRight.config_kP(0,Value.fly_kp);
-
+    flywheelLeft.config_kD(0, Value.fly_kD);
+    flywheelRight.config_kD(0, Value.fly_kD);
     //PeakOutput , CurrentLimit , NeutralDeadband 
     flywheelLeft.configPeakOutputForward(1, Constants.kTimesOut);
     flywheelLeft.configPeakOutputReverse(0, Constants.kTimesOut);
@@ -76,7 +77,7 @@ public class Shooter extends SubsystemBase {
       flywheelRight.config_kF(0, 0.05);
       flywheelLeft.set(ControlMode.Velocity, 8000);
     }
-    else if(Limelight.getdistances() <= 130) {
+    else if(Limelight.getdistances() <= 119) {
       flywheelLeft.config_kF(0, Constants.Value.fly_kFCLOSE);
       flywheelRight.config_kF(0, Constants.Value.fly_kFCLOSE);
       flywheelLeft.set(ControlMode.Velocity, Constants.Value.fly_speedCLOSE);
@@ -84,11 +85,11 @@ public class Shooter extends SubsystemBase {
       flywheelLeft.config_kF(0, Constants.Value.fly_kFAR);
       flywheelRight.config_kF(0, Constants.Value.fly_kFAR);
       flywheelLeft.set(ControlMode.Velocity, Constants.Value.fly_speedFAR);
-    }else{
-      flywheelLeft.config_kF(0, 0.05);
-      flywheelRight.config_kF(0, 0.05);
-      flywheelLeft.set(ControlMode.Velocity, 11800);
-    }
+    }//else{
+    //   flywheelLeft.config_kF(0, 0.05);
+    //   flywheelRight.config_kF(0, 0.05);
+    //   flywheelLeft.set(ControlMode.Velocity, 11800);
+    // }
   }
 
 

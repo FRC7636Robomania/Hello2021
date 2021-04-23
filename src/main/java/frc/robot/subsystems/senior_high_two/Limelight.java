@@ -40,7 +40,7 @@ public class Limelight extends SubsystemBase{
     
     public static double getTx() {
         double x = tx.getDouble(0.0);
-        return x + 3;
+        return x;
     }
     
     public static double getTy() {

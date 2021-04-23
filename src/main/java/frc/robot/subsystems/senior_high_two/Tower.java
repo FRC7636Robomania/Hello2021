@@ -1,3 +1,4 @@
+
 package frc.robot.subsystems.senior_high_two;
 
 import com.ctre.phoenix.motorcontrol.*;
@@ -12,8 +13,7 @@ public class Tower extends SubsystemBase {
     private SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration = new SupplyCurrentLimitConfiguration(true, 10, 10, 1);
     private String status = "stop";
     private static TalonSRX towerSrx = new TalonSRX(Constants.tower);
-    private static final double basicPower = 0.065;
-    // private DigitalInput digInput = new DigitalInput(0);
+    private static double basicPower = 0.07;
     
     public Tower(Limelight limelight){
         towerSrx.configFactoryDefault();
@@ -40,43 +40,27 @@ public class Tower extends SubsystemBase {
     }
 
     public void aimming(){
-        double horizon = -Limelight.getTx() * Constants.Value.towerConst;
-        double targetArea = Limelight.getarea();
-        if(targetArea > 0 && Math.abs(Limelight.getTx()) > 0.095){
-
-            if(Math.abs(Limelight.getTx()) < 1){
-                if(horizon > 0){
-                    horizon += basicPower - 0.0037;
-                }else if(horizon < 0){
-                    horizon -= (basicPower - 0.0037);
-                }
-                towerSrx.set(ControlMode.PercentOutput, horizon);
-            }else if (Math.abs(Limelight.getTx()) <= 3.8){
-                if(horizon > 0){
-                    horizon += basicPower - 0.005;
-                }else if(horizon < 0){
-                    horizon -= (basicPower -0.005);
-                }
-                towerSrx.set(ControlMode.PercentOutput, horizon);
-            }else if (Math.abs(Limelight.getTx()) <= 5){
-                if(horizon > 0){
-                    horizon += basicPower - 0.009;
-                }else if(horizon < 0){
-                    horizon -= (basicPower -0.009);
-                }
-                towerSrx.set(ControlMode.PercentOutput, horizon);
+        double xx=Limelight.getTx();
+        double absX = Math.abs(xx);
+        if(Limelight.getarea()>0){
+            if(absX > 0.085 && absX < 2){
+                basicPower = 0.045;
+            }else if(absX > 2 && absX < 9){
+                basicPower = 0.05;
             }else{
-                towerSrx.set(ControlMode.PercentOutput, horizon);
+                basicPower = 0;
             }
-            status = "aimming";
+            
+            if(xx < 0){
+                basicPower *= -1;
+            }
+            towerSrx.set(ControlMode.PercentOutput, -xx*0.007-basicPower); 
         }
         else{
-            towerSrx.set(ControlMode.PercentOutput, 0);
-            status = "out vision";
+            towerSrx.set(ControlMode.PercentOutput, 0); 
         }
-        
-    }
-
+     }
+     
     public void towerForward(){
         towerSrx.set(ControlMode.PercentOutput, 0.17);
         status = "turn right";

@@ -31,6 +31,7 @@ public class TrajectoryFactory {
     try {
       Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(mapPath);
       trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+      
     } catch (IOException ex) {
       DriverStation.reportError("Unable to open trajectory: " + mapPath, ex.getStackTrace());
     }

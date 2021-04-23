@@ -39,13 +39,14 @@ public class Racker extends SubsystemBase {
         rackerSrx.configSupplyCurrentLimit(supplyCurrentLimitConfiguration);
         rackerSrx.config_kP(0, Constants.Value.rackerKP);
         rackerSrx.config_kI(0, Constants.Value.rackerKI);
+        rackerSrx.config_kD(0, Constants.Value.rackerKD);
         rackerSrx.config_IntegralZone(0, Constants.Value.rackerIZone);
 
-        rackerSrx.setSelectedSensorPosition(-11580, 0, Constants.kTimesOut);
+        // rackerSrx.setSelectedSensorPosition(-11580, 0, Constants.kTimesOut);
         rackerSrx.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
         rackerSrx.configClearPositionOnLimitF(true, 10);
-        rackerSrx.configForwardSoftLimitThreshold(-2500);
-        rackerSrx.configForwardSoftLimitEnable(true);
+        // rackerSrx.configForwardSoftLimitThreshold(-2500);
+        // rackerSrx.configForwardSoftLimitEnable(true);
     }
 
     public void add(){
@@ -74,7 +75,7 @@ public class Racker extends SubsystemBase {
     }
 
     public void reset() {
-        // rackerSrx.overrideLimitSwitchesEnable(false);
+        rackerSrx.overrideLimitSwitchesEnable(false);
         rackerSrx.setSelectedSensorPosition(1000000, 0, Constants.kTimesOut);
         double[] history = new double[5];
         int count = 0;
@@ -103,6 +104,8 @@ public class Racker extends SubsystemBase {
                 break;
             }
         }
+        rackerSrx.overrideLimitSwitchesEnable(true);
+
     }
 
     public void wait(int ms){
@@ -119,43 +122,46 @@ public class Racker extends SubsystemBase {
 
         
          if(50>=distance&&distance>40){
-            rackerSrx.set(ControlMode.Position, -4400);
+            rackerSrx.set(ControlMode.Position, -4870);
             status = "2800";
         }else if(60>=distance&&distance>50){
-            rackerSrx.set(ControlMode.Position, -4600);
+            rackerSrx.set(ControlMode.Position, -5316);
             status = "2900";
         }else if(70>=distance&&distance>60){
-            rackerSrx.set(ControlMode.Position, -5500);
+            rackerSrx.set(ControlMode.Position, -5200);
             status = "4100";
         }else if(80>=distance&&distance>70){
-            rackerSrx.set(ControlMode.Position, -5800);
+            rackerSrx.set(ControlMode.Position, -5050);
             status = "6000";
         }else if(90>=distance&&distance>80){
-            rackerSrx.set(ControlMode.Position, -9625);
+            rackerSrx.set(ControlMode.Position, -7150);
             status = "10000";
         }else if(100>=distance&&distance>90){
-            rackerSrx.set(ControlMode.Position, -9500);
+            rackerSrx.set(ControlMode.Position, -8210);
             status = "10600";
         }else if(110>=distance&&distance>100){
-            rackerSrx.set(ControlMode.Position, -9828);
+            rackerSrx.set(ControlMode.Position, -8276);
             status = "11000";
         }else if(120>=distance&&distance>110){
             rackerSrx.set(ControlMode.Position, -9780);
             status = "11500";
         }else if(130>=distance&&distance>120){
-            rackerSrx.set(ControlMode.Position, -10920);
+            rackerSrx.set(ControlMode.Position, -9540);
             status = "11900";
         }
-        else if(145>=distance&&distance>130){
-            rackerSrx.set(ControlMode.Position, -11580); 
+        else if(140>=distance&&distance>130){
+            rackerSrx.set(ControlMode.Position, -10590); 
             status = "11400";
-        }else if(160>=distance&&distance>145){
+        }//else{
+
+        // }
+            /*else if(150>=distance&&distance>140){
             rackerSrx.set(ControlMode.Position, -11580); 
             status = "11400";
         }else{
             rackerSrx.set(ControlMode.Position, -9889); //9889
             status = "11400";
-        }
+        }*/
            
         }
     

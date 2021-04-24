@@ -81,11 +81,16 @@ public class Shooter extends SubsystemBase {
       flywheelLeft.config_kF(0, Constants.Value.fly_kFCLOSE);
       flywheelRight.config_kF(0, Constants.Value.fly_kFCLOSE);
       flywheelLeft.set(ControlMode.Velocity, Constants.Value.fly_speedCLOSE);
-    }else if(Limelight.getdistances() <=180){
+    }else if(Limelight.getdistances() <=140){
       flywheelLeft.config_kF(0, Constants.Value.fly_kFAR);
       flywheelRight.config_kF(0, Constants.Value.fly_kFAR);
       flywheelLeft.set(ControlMode.Velocity, Constants.Value.fly_speedFAR);
-    }//else{
+    }// }else{
+    //   flywheelLeft.config_kF(0, Constants.Value.fly_kFAR);
+    //   flywheelRight.config_kF(0, Constants.Value.fly_kFAR);
+    //   flywheelLeft.set(ControlMode.Velocity, 12500);
+    // }
+      //else{
     //   flywheelLeft.config_kF(0, 0.05);
     //   flywheelRight.config_kF(0, 0.05);
     //   flywheelLeft.set(ControlMode.Velocity, 11800);

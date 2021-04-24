@@ -32,11 +32,11 @@ public class RobotContainer {
   private Wing m_Wing = new Wing();
   private Limelight m_Limelight = new Limelight();
   private Tower m_tower = new Tower(m_Limelight);
-  private Racker m_Racker = new Racker(m_Limelight);
   private Shooter m_Shooter = new Shooter(m_Limelight);
   private Conveyor m_Conveyor = new Conveyor(m_Shooter);
   private ControlDrivetrain controlDrivetrain = new ControlDrivetrain();
   private TrajectoryDrivetrain trajectoryDrivetrain = new TrajectoryDrivetrain();
+  private Racker m_Racker = new Racker(controlDrivetrain);
   private final SendableChooser<Command> chooser = new SendableChooser<Command>();
   private UsbCamera frontCamera;
 
@@ -67,7 +67,7 @@ public class RobotContainer {
     new JoystickButton(joystick, Constants.Button.arm)              .whenHeld(new Arm_motion(m_arm));
     new JoystickButton(joystick, Constants.Button.rateChanger)        .whenHeld(new InstantCommand(()->controlDrivetrain.changeRate()));
     new JoystickButton(joystick, Constants.Button.intake_reverse)                .whenHeld(new InstantCommand(()->m_Intake.reverse(), m_Intake)) 
-                                                                              .whenHeld(new InstantCommand(()->m_Wing.reverse(), m_Wing))             
+                                                                              .whenHeld(new InstantCommand(()->m_Wing.forward(), m_Wing))             
                                                                               .whenHeld(new InstantCommand(()->m_Conveyor.reverse(), m_Conveyor))
                                         /*反轉*/                              .whenReleased(new InstantCommand(()->m_Intake.stop(), m_Intake))
                                                                               .whenReleased(new InstantCommand(()->m_Wing.stop(), m_Wing))
@@ -77,7 +77,8 @@ public class RobotContainer {
     new JoystickButton(findHitoABoyfriend, Constants.Xbox.aim)                  .whenHeld(new RunCommand(()->m_tower.aimming(),m_tower))
                                                                                   .whenReleased(new InstantCommand(()->m_tower.towerStop(),m_tower))
                                                                                   .whenHeld(new RunCommand(()->m_Racker.PortDistance(),m_Racker))
-                                                                                  .whenReleased(new InstantCommand(()->m_Racker.rackerstop(),m_Racker));
+                                                                                  .whenReleased(new InstantCommand(()->m_Racker.rackerstop(),m_Racker))
+                                                                                  .whenReleased(new InstantCommand(()->Constants.Value.aimming = false));
     new JoystickButton(findHitoABoyfriend, Constants.Xbox.tower_left)           .whenHeld(new InstantCommand(()->m_tower.towerForward(),m_tower))
                                                                                   .whenReleased(new InstantCommand(()->m_tower.towerStop(), m_tower));
     new JoystickButton(findHitoABoyfriend, Constants.Xbox.tower_right)          .whenHeld(new InstantCommand(()->m_tower.towerReverse(), m_tower))
@@ -87,9 +88,6 @@ public class RobotContainer {
     new JoystickButton(findHitoABoyfriend, Constants.Xbox.ranker_down)          .whenHeld(new InstantCommand(()->m_Racker.rackerReverse(), m_Racker))
                                                                                   .whenReleased(new InstantCommand(()->m_Racker.rackerstop(), m_Racker));
 
-    new JoystickButton(findHitoABoyfriend, Constants.Xbox.record).whenHeld(new InstantCommand(()->m_Racker.add()));
-    new JoystickButton(findHitoABoyfriend, Constants.Xbox.show).whenHeld(new InstantCommand(()->m_Racker.printAll()));
-                                                                                  //new JoystickButton(joystick, 3)          .whenHeld(new RunCommand(()->m_Shooter.percentage()));
   //   new JoystickButton(findHitoABoyfriend, 2)                         .whenHeld(new InstantCommand(()->m_Conveyor.forward()))
   //                                                                     .whenReleased(new InstantCommand(()->m_Conveyor.stop()));
   }

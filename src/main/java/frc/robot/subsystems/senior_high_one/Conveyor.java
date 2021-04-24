@@ -42,7 +42,7 @@ public class Conveyor extends SubsystemBase {
   public void forward(){
     double limit = 0;
     if(Limelight.getdistances() < 80){
-      limit = 7750;
+      limit = 7700;
     }else if (Limelight.getdistances() < 130){
       limit = 9500;
     }else {

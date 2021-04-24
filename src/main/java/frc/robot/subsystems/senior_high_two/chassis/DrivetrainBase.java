@@ -67,7 +67,12 @@ public class DrivetrainBase extends SubsystemBase {
     
     ahrs.reset();
   }
-
+  public boolean isMove(){
+    if(Math.abs(leftMas.getSelectedSensorVelocity()) > 21600 * 0.1){
+      return true;
+    }
+    return false;
+  }
   public void resetSensor(){
     MotorFactory.setPosion(leftMas, 0, 0, 0);
     MotorFactory.setPosion(rightMas, 0, 0, 0);

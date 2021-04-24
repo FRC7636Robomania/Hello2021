@@ -64,4 +64,6 @@ public class Wing extends SubsystemBase {
       Middle.set(ControlMode.PercentOutput,0);
     }
   }
+
+  
 }

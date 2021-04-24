@@ -41,16 +41,18 @@ public final class Constants {
         public static final double fly_speedFAR     = 11700;
         public static final double fly_speedCLOSE   = 11000;
 
-        public static final double fly_kp        = 0.15;
-        public static final double fly_kD        = 0.05;
+        public static final double fly_kp        = 0.09;
+        public static final double fly_kD        = 0.0005;
         public static final double fly_kFCLOSE   = 0.05;
         public static final double fly_kFAR      = 0.05;
-        public static final double rackerKP      = 0.4;
-        public static final double rackerKI      = 0.008;
-        public static final double rackerKD      = 0.04;
+        public static final double rackerKP      = 0.25;
+        public static final double rackerKI      = 0.0005;
+        public static final double rackerKD      = 0.0001;
+        public static final int    rackerError   = 70;
+        public static boolean      aimming       = false;
 
         public static final double towerConst    = 0.01;
-        public static final int rackerIZone      = 300;
+        public static final int rackerIZone      = 150;
         public static final int portHigh         = 250;     //cm
         public static final int robotHigh        = 55+5;    //cm 
     }
@@ -64,15 +66,15 @@ public final class Constants {
 
     }
     public static class Xbox{
-        public static final int tower_left = 1;
-        public static final int tower_right = 3;
-        public static final int ranker_up = 2;
-        public static final int ranker_down = 4;
-        public static final int flywheel = 5;
-        public static final int shoot = 6;
-        public static final int aim = 11;
-        public static final int record = 12;
-        public static final int show = 8;
+        public static final int tower_left = 7;
+        public static final int tower_right = 8;
+        public static final int ranker_up = 6;
+        public static final int ranker_down = 3;
+        public static final int flywheel = 1;
+        public static final int shoot = 4;
+        public static final int aim = 5;
+        // public static final int record = 12;
+        // public static final int show = 8;
     }
 
     public static class Chassis{

@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.commands.*;
 import frc.robot.commands.auto.LeftUp;
+import frc.robot.commands.auto.Move;
 import frc.robot.commands.auto.TrajectoryCommand;
 import frc.robot.subsystems.senior_high_one.*;
 import frc.robot.subsystems.senior_high_two.*;
@@ -32,11 +33,11 @@ public class RobotContainer {
   private Wing m_Wing = new Wing();
   private Limelight m_Limelight = new Limelight();
   private Tower m_tower = new Tower(m_Limelight);
-  private Racker m_Racker = new Racker(m_Limelight);
   private Shooter m_Shooter = new Shooter(m_Limelight);
   private Conveyor m_Conveyor = new Conveyor(m_Shooter);
   private ControlDrivetrain controlDrivetrain = new ControlDrivetrain();
   private TrajectoryDrivetrain trajectoryDrivetrain = new TrajectoryDrivetrain();
+  private Racker m_Racker = new Racker(controlDrivetrain);
   private final SendableChooser<Command> chooser = new SendableChooser<Command>();
   private UsbCamera frontCamera;
 
@@ -47,17 +48,18 @@ public class RobotContainer {
     chooser();
     Compressor();
     configureButtonBindings();
-    frontCamera = CameraServer.getInstance().startAutomaticCapture();
-    frontCamera.setResolution(320, 240);
-    frontCamera.setFPS(3);
+    // frontCamera = CameraServer.getInstance().startAutomaticCapture();
+    // frontCamera.setResolution(320, 240);
+    // frontCamera.setFPS(3);
   }
 
   public void chooser(){
     chooser.setDefaultOption("LeftUp", new LeftUp(controlDrivetrain, trajectoryDrivetrain, 
                                            m_Racker, m_tower, m_Intake, 
                                            m_Wing, m_Shooter, m_Conveyor, m_arm));
+    chooser.addOption("Move", new Move(controlDrivetrain));
     chooser.addOption("Null", null);
-    chooser.addOption("one", TrajectoryCommand.build(TrajectoryFactory.getTrajectory("output/test.wpilib.json"), trajectoryDrivetrain, TrajectoryCommand.OutputMode.VOLTAGE, trajectoryDrivetrain));
+    // chooser.addOption("one", TrajectoryCommand.build(TrajectoryFactory.getTrajectory("output/test.wpilib.json"), trajectoryDrivetrain, TrajectoryCommand.OutputMode.VOLTAGE, trajectoryDrivetrain));
     SmartDashboard.putData(chooser);
   }
 
@@ -77,7 +79,8 @@ public class RobotContainer {
     new JoystickButton(findHitoABoyfriend, Constants.Xbox.aim)                  .whenHeld(new RunCommand(()->m_tower.aimming(),m_tower))
                                                                                   .whenReleased(new InstantCommand(()->m_tower.towerStop(),m_tower))
                                                                                   .whenHeld(new RunCommand(()->m_Racker.PortDistance(),m_Racker))
-                                                                                  .whenReleased(new InstantCommand(()->m_Racker.rackerstop(),m_Racker));
+                                                                                  .whenReleased(new InstantCommand(()->m_Racker.rackerstop(),m_Racker))
+                                                                                  .whenReleased(new InstantCommand(()->Constants.Value.aimming = false));
     new JoystickButton(findHitoABoyfriend, Constants.Xbox.tower_left)           .whenHeld(new InstantCommand(()->m_tower.towerForward(),m_tower))
                                                                                   .whenReleased(new InstantCommand(()->m_tower.towerStop(), m_tower));
     new JoystickButton(findHitoABoyfriend, Constants.Xbox.tower_right)          .whenHeld(new InstantCommand(()->m_tower.towerReverse(), m_tower))
@@ -87,9 +90,6 @@ public class RobotContainer {
     new JoystickButton(findHitoABoyfriend, Constants.Xbox.ranker_down)          .whenHeld(new InstantCommand(()->m_Racker.rackerReverse(), m_Racker))
                                                                                   .whenReleased(new InstantCommand(()->m_Racker.rackerstop(), m_Racker));
 
-    new JoystickButton(findHitoABoyfriend, Constants.Xbox.record).whenHeld(new InstantCommand(()->m_Racker.add()));
-    new JoystickButton(findHitoABoyfriend, Constants.Xbox.show).whenHeld(new InstantCommand(()->m_Racker.printAll()));
-                                                                                  //new JoystickButton(joystick, 3)          .whenHeld(new RunCommand(()->m_Shooter.percentage()));
   //   new JoystickButton(findHitoABoyfriend, 2)                         .whenHeld(new InstantCommand(()->m_Conveyor.forward()))
   //                                                                     .whenReleased(new InstantCommand(()->m_Conveyor.stop()));
   }
@@ -123,8 +123,6 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new LeftUp(controlDrivetrain, trajectoryDrivetrain, 
-    m_Racker, m_tower, m_Intake, 
-    m_Wing, m_Shooter, m_Conveyor, m_arm);
+    return chooser.getSelected();
   }
 }

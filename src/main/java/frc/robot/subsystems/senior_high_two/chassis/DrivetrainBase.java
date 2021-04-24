@@ -67,7 +67,12 @@ public class DrivetrainBase extends SubsystemBase {
     
     ahrs.reset();
   }
-
+  public boolean isMove(){
+    if(Math.abs(leftMas.getSelectedSensorVelocity()) > 21600 * 0.1){
+      return true;
+    }
+    return false;
+  }
   public void resetSensor(){
     MotorFactory.setPosion(leftMas, 0, 0, 0);
     MotorFactory.setPosion(rightMas, 0, 0, 0);
@@ -78,8 +83,6 @@ public class DrivetrainBase extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("left", leftMas.getSelectedSensorVelocity());
-    SmartDashboard.putNumber("right", rightMas.getSelectedSensorVelocity());
     // This method will be called once per scheduler run
   }
 }

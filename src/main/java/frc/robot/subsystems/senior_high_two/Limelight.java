@@ -40,7 +40,7 @@ public class Limelight extends SubsystemBase{
     
     public static double getTx() {
         double x = tx.getDouble(0.0);
-        return x;
+        return x+3.5;
     }
     
     public static double getTy() {
@@ -55,9 +55,11 @@ public class Limelight extends SubsystemBase{
 @Override
 public void periodic(){
     SmartDashboard.putNumber("tx", Limelight.getTx());
-    SmartDashboard.putNumber("ty",Limelight.getTy());
-    SmartDashboard.putNumber("ta",Limelight.getarea());
+    if(Limelight.getarea()>0){
+        SmartDashboard.putBoolean("findthething",true);
+    }else{
+        SmartDashboard.putBoolean("findthething",false);
+    }
     SmartDashboard.putNumber("dis_program", Limelight.getdistances());
-    SmartDashboard.putNumber("distance_real", Limelight.getdistances() * 2.5);
 }
 }

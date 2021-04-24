@@ -81,11 +81,16 @@ public class Shooter extends SubsystemBase {
       flywheelLeft.config_kF(0, Constants.Value.fly_kFCLOSE);
       flywheelRight.config_kF(0, Constants.Value.fly_kFCLOSE);
       flywheelLeft.set(ControlMode.Velocity, Constants.Value.fly_speedCLOSE);
-    }else if(Limelight.getdistances() <=180){
+    }else if(Limelight.getdistances() <=140){
       flywheelLeft.config_kF(0, Constants.Value.fly_kFAR);
       flywheelRight.config_kF(0, Constants.Value.fly_kFAR);
       flywheelLeft.set(ControlMode.Velocity, Constants.Value.fly_speedFAR);
-    }//else{
+    }// }else{
+    //   flywheelLeft.config_kF(0, Constants.Value.fly_kFAR);
+    //   flywheelRight.config_kF(0, Constants.Value.fly_kFAR);
+    //   flywheelLeft.set(ControlMode.Velocity, 12500);
+    // }
+      //else{
     //   flywheelLeft.config_kF(0, 0.05);
     //   flywheelRight.config_kF(0, 0.05);
     //   flywheelLeft.set(ControlMode.Velocity, 11800);
@@ -108,8 +113,14 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("flyvel", flywheelLeft.getSelectedSensorVelocity(0));
-    SmartDashboard.putNumber("flyvel2", flywheelLeft.getSelectedSensorVelocity(0));
-    SmartDashboard.putNumber("fly_Voltage", flywheelRight.getMotorOutputVoltage());
-    SmartDashboard.putNumber("fly_current", PDP.getCurrent(12));
+    if(Limelight.getdistances() < 80&&7700<flywheelLeft.getSelectedSensorVelocity()&&9200>flywheelLeft.getSelectedSensorVelocity()){
+      SmartDashboard.putBoolean("YouCanShoot", true);
+    }else if (Limelight.getdistances() < 130&&9500<flywheelLeft.getSelectedSensorVelocity()&&12000>flywheelLeft.getSelectedSensorVelocity()){
+      SmartDashboard.putBoolean("YouCanShoot", true);
+    }else if (Limelight.getdistances() > 130&&10200<flywheelLeft.getSelectedSensorVelocity()&&13200>flywheelLeft.getSelectedSensorVelocity()){
+      SmartDashboard.putBoolean("YouCanShoot", true);
+    }else {
+      SmartDashboard.putBoolean("YouCanShoot", false);
+    }
   }
 }

@@ -29,8 +29,8 @@ public class Tower extends SubsystemBase {
         towerSrx.configNominalOutputReverse(0,Constants.kTimesOut);
         towerSrx.configSupplyCurrentLimit(supplyCurrentLimitConfiguration);
 
-        towerSrx.configForwardSoftLimitThreshold(3600, 0);
-        towerSrx.configReverseSoftLimitThreshold(-3600, 0);
+        towerSrx.configForwardSoftLimitThreshold(3800, 0);
+        towerSrx.configReverseSoftLimitThreshold(-3800, 0);
         towerSrx.configForwardSoftLimitEnable(true, 0);
         towerSrx.configReverseSoftLimitEnable(true, 0);
         towerSrx.setNeutralMode(NeutralMode.Brake);
@@ -38,7 +38,7 @@ public class Tower extends SubsystemBase {
         towerSrx.enableVoltageCompensation(true);
 
     }
-
+    public static double lastX = 0;
     public void aimming(){
         double xx=Limelight.getTx();
         double absX = Math.abs(xx);
@@ -57,7 +57,11 @@ public class Tower extends SubsystemBase {
             towerSrx.set(ControlMode.PercentOutput, -xx*0.007-basicPower); 
         }
         else{
-            towerSrx.set(ControlMode.PercentOutput, 0); 
+            if(lastX > 0){
+                towerSrx.set(ControlMode.PercentOutput, -0.1);
+            }else{
+                towerSrx.set(ControlMode.PercentOutput, 0.1);
+            }
         }
      }
      
@@ -85,6 +89,9 @@ public class Tower extends SubsystemBase {
         // if(digInput.get()){
         //     towerSrx.setSelectedSensorPosition(0,0,10);
         // }  
+        if(Limelight.getarea() > 0){
+            lastX = Limelight.getTx();
+        }
         SmartDashboard.putNumber("towerpo", towerSrx.getSelectedSensorPosition(0));
     }
 } 

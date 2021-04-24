@@ -176,12 +176,6 @@ public class Racker extends SubsystemBase {
     }
   @Override
     public void periodic(){
-        if(rackerSrx.getSensorCollection().isFwdLimitSwitchClosed()){
-            SmartDashboard.putBoolean("limitswitch", true);
-        }else{
-            
-            SmartDashboard.putBoolean("limitswitch", false);
-        }
         int position = rackerSrx.getSelectedSensorPosition();
         if(train.isMove() && position < -2500 && !Constants.Value.aimming){
             rackerSrx.set(ControlMode.PercentOutput, 0.25);

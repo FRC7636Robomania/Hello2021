@@ -83,8 +83,6 @@ public class DrivetrainBase extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("left", leftMas.getSelectedSensorVelocity());
-    SmartDashboard.putNumber("right", rightMas.getSelectedSensorVelocity());
     // This method will be called once per scheduler run
   }
 }

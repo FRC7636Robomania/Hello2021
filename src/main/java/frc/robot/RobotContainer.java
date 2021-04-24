@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.commands.*;
 import frc.robot.commands.auto.LeftUp;
+import frc.robot.commands.auto.Move;
 import frc.robot.commands.auto.TrajectoryCommand;
 import frc.robot.subsystems.senior_high_one.*;
 import frc.robot.subsystems.senior_high_two.*;
@@ -42,22 +43,23 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    Status();
+    // Status();
     teleop();
     chooser();
     Compressor();
     configureButtonBindings();
-    frontCamera = CameraServer.getInstance().startAutomaticCapture();
-    frontCamera.setResolution(320, 240);
-    frontCamera.setFPS(3);
+    // frontCamera = CameraServer.getInstance().startAutomaticCapture();
+    // frontCamera.setResolution(320, 240);
+    // frontCamera.setFPS(3);
   }
 
   public void chooser(){
     chooser.setDefaultOption("LeftUp", new LeftUp(controlDrivetrain, trajectoryDrivetrain, 
                                            m_Racker, m_tower, m_Intake, 
                                            m_Wing, m_Shooter, m_Conveyor, m_arm));
+    chooser.addOption("Move", new Move(controlDrivetrain));
     chooser.addOption("Null", null);
-    chooser.addOption("one", TrajectoryCommand.build(TrajectoryFactory.getTrajectory("output/test.wpilib.json"), trajectoryDrivetrain, TrajectoryCommand.OutputMode.VOLTAGE, trajectoryDrivetrain));
+    // chooser.addOption("one", TrajectoryCommand.build(TrajectoryFactory.getTrajectory("output/test.wpilib.json"), trajectoryDrivetrain, TrajectoryCommand.OutputMode.VOLTAGE, trajectoryDrivetrain));
     SmartDashboard.putData(chooser);
   }
 
@@ -121,8 +123,6 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new LeftUp(controlDrivetrain, trajectoryDrivetrain, 
-    m_Racker, m_tower, m_Intake, 
-    m_Wing, m_Shooter, m_Conveyor, m_arm);
+    return chooser.getSelected();
   }
 }
